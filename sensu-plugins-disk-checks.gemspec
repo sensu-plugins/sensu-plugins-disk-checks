@@ -30,7 +30,7 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'sensu-plugin',      '1.1.0'
   s.add_runtime_dependency 'rubysl-tempfile',   '2.0.1'
-  s.add_runtime_dependency 'rubysl-socket',   '2.0.1'
+  s.add_runtime_dependency 'rubysl-socket',     '2.0.1'
   s.add_runtime_dependency 'rubysl-pathname',   '2.1.0'
 
   s.add_development_dependency 'rubocop',       '~> 0.17.0'
