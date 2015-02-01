@@ -54,10 +54,10 @@ Each plugin, handler, mutator, extension should use the following standard heade
 
 ## Documentation
 
-All documentation will be handled by [RDoc](https://github.com/rdoc/rdoc) and we are using the default rdoc markup at this time. A brief introduction RDoc markup can be found [here](http://docs.seattlerb.org/rdoc/RDoc/Markup.html). All scripts should have as much documentation coverage as possible, ideally 100%.  You can test your coverage by installing RDoc locally and running
+All documentation will be handled by Yard and we are using the default markup at this time. A brief introduction Yard markup can be found here. All scripts should have as much documentation coverage as possible, ideally 100%. You can test your coverage by installing Yard locally and running
 
 ```shell
-rdoc -C <filename>
+rake yard
 ```
 
 The output will tell you how much coverage you have without spending the time building the docs.  

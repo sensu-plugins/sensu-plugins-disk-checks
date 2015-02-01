@@ -11,26 +11,28 @@ end
 pvt_key = '~/.ssh/gem-private_key.pem'
 
 Gem::Specification.new do |s|
-  s.name             = 'sensu-plugins-disk-checks'
-  s.version          = SensuPluginsDiskChecks::VERSION
-  s.authors          = ['Sonian, Inc. and contributors']
-  s.email            = '<sensu-users@googlegroups.com>'
-  s.homepage         = 'https://github.com/sensu-plugins/sensu-plugins-disk-checks'
-  s.summary          = 'Sensu disk checks'
-  s.description      = 'Sensu disk checks'
-  s.license          = 'MIT'
-  s.date             = Date.today.to_s
-  s.files            = `git ls-files -z`.split("\x0")
-  s.executables      = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  s.test_files       = s.files.grep(%r{^(test|spec|features)/})
-  s.require_paths    = ['lib']
-  s.cert_chain       = ['certs/sensu-plugins.pem']
-  s.signing_key      = File.expand_path(pvt_key) if $PROGRAM_NAME =~ /gem\z/
-  s.platform         = Gem::Platform::RUBY
+  s.name                   = 'sensu-plugins-disk-checks'
+  s.version                = SensuPluginsDiskChecks::VERSION
+  s.authors                = ['Yieldbot, Inc. and contributors']
+  s.email                  = '<sensu-users@googlegroups.com>'
+  s.homepage               = 'https://github.com/sensu-plugins/sensu-plugins-disk-checks'
+  s.summary                = 'Sensu disk checks'
+  s.description            = 'Sensu disk checks'
+  s.license                = 'MIT'
+  s.date                   = Date.today.to_s
+  s.files                  = Dir.glob('{bin,lib}/**/*') + %w(LICENSE README.md CHANGELOG.md)
+  s.executables            = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  s.test_files             = s.files.grep(%r{^(test|spec|features)/})
+  s.require_paths          = ['lib']
+  s.cert_chain             = ['certs/sensu-plugins.pem']
+  s.signing_key            = File.expand_path(pvt_key) if $PROGRAM_NAME =~ /gem\z/
+  s.platform               = Gem::Platform::RUBY
+  s.required_ruby_version  = '>= 1.9.3'
+
 
   s.add_runtime_dependency 'sensu-plugin',      '1.1.0'
 
-  s.add_development_dependency 'codeclimate-test-reporter' # , group: :test, require: nil
+  s.add_development_dependency 'codeclimate-test-reporter'
   s.add_development_dependency 'rubocop',       '~> 0.17.0'
   s.add_development_dependency 'rspec',         '~> 3.1'
   s.add_development_dependency 'bundler',       '~> 1.7'

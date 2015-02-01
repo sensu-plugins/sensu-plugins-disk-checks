@@ -5,3 +5,11 @@
 * pinned dependencies
 * built against 1.9.3, 2.0, 2.1
 * cryptographically signed
+
+### 0.0.1-alpha.2
+
+* bump Vagrant box to Cent 6.6
+* update LICENSE and gemspec authors
+* update README
+* add required Ruby version *>= 1.9.3*
+* add test/spec_help.rb
