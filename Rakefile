@@ -18,7 +18,7 @@ end
 YARD::Rake::YardocTask.new do |t|
   OTHER_PATHS = %w()
   t.files = ['lib/**/*.rb', 'bin/**/*.rb', OTHER_PATHS]
-  t.options = %w(--markup-provider=redcarpet --markup=markdown --main=README.md --files CHANGELOG.md,CONTRIBUTING.md)
+  t.options = %w(--markup-provider=redcarpet --markup=markdown --main=README.md --files CHANGELOG.md)
 end
 
 Rubocop::RakeTask.new
