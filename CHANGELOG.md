@@ -1,4 +1,4 @@
-## 0.1.0-alpha.1
+#### 0.1.0-alpha.1
 
 * baseline release identical to **sensu-community-plugins** repo
 * basic yard coverage
@@ -6,7 +6,7 @@
 * built against 1.9.3, 2.0, 2.1
 * cryptographically signed
 
-## 0.0.1-alpha.2
+#### 0.0.1-alpha.2
 
 * bump Vagrant box to Cent 6.6
 * update LICENSE and gemspec authors
