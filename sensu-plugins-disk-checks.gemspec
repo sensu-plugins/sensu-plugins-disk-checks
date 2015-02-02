@@ -29,7 +29,6 @@ Gem::Specification.new do |s|
   s.platform               = Gem::Platform::RUBY
   s.required_ruby_version  = '>= 1.9.3'
 
-
   s.add_runtime_dependency 'sensu-plugin',      '1.1.0'
 
   s.add_development_dependency 'codeclimate-test-reporter'
