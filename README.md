@@ -10,22 +10,22 @@
 ### check-disk-fail
 Check the output of dmesg for a given set of strings that may correspond to a failure
 
-### check-disk
+**check-disk**
 Check disk capacity and inodes based upon the output of df.
 
-### check-fs-writeable
+**check-fs-writeable**
 Check to make sure a filesytem is writable.  This will check both proc and do a smoke test of each given mountpoint.  It can also auto-discover mount points in the self namespace.
 
-### check-fstab-mounts
+**check-fstab-mounts**
 Check the mount points in */etc/fstab* to ensure they are all accounted for.
 
-### disk-capacity-metrics
+**disk-capacity-metrics**
 Acquire disk capacity metrics from `df` and convert them to a form usable by graphite
 
-### disk-metrics
+**disk-metrics**
 Read */proc/iostats* for disk metrics and put them in a form usable by Graphite.  See [iostats.txt](http://www.kernel.org/doc/Documentation/iostats.txt) for more details.
 
-### disk-usage-metrics
+**disk-usage-metrics**
 Based on disk-capacity-metrics.rb by bhenerey and nstielau. The difference here being how the key is defined in graphite and the size we emit to graphite(now using megabytes), inode info has also been dropped.
 
 
