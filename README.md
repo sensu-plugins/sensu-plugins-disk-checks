@@ -99,8 +99,30 @@ gem install <gem> -P MediumSecurity
 
 You can also download the key from /certs/ within each repository.
 
+#### Rubygems
+
 `gem install sensu-plugins-disk-checks`
 
-Add *sensu-plugins-disk-checks* to your Gemfile, manifest, cookbook, etc
+#### Bundler
+
+Add *sensu-plugins-disk-checks* to your Gemfile and run `bundle install` or `bundle update`
+
+#### Chef
+
+Using the Sensu **sensu_gem** LWRP
+```
+sensu_gem 'sensu-plugins-disk-checks' do
+  options('--prerelease')
+  version '0.0.1.alpha.2'
+end
+```
+
+Using the Chef **gem_package** resource
+```
+gem_package 'sensu-plugins-process-checks' do
+  options('--prerelease')
+  version '0.0.1.alpha.2'
+end
+```
 
 ## Notes
