@@ -30,6 +30,8 @@ Gem::Specification.new do |s|
   s.required_ruby_version  = '>= 1.9.3'
 
   s.add_runtime_dependency 'sensu-plugin',      '1.1.0'
+  s.add_runtime_dependency 'sys-filesystem'
+  s.add_runtime_dependency 'filesystem'
 
   s.add_development_dependency 'codeclimate-test-reporter'
   s.add_development_dependency 'rubocop',       '~> 0.17.0'
@@ -39,4 +41,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'github-markup'
   s.add_development_dependency 'redcarpet'
   s.add_development_dependency 'yard'
+  s.add_development_dependency 'pry'
 end
