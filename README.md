@@ -4,6 +4,8 @@
 [![Gem Version](https://badge.fury.io/rb/sensu-plugins-disk-checks.svg)](http://badge.fury.io/rb/sensu-plugins-disk-checks)
 [![Code Climate](https://codeclimate.com/github/sensu-plugins/sensu-plugins-disk-checks/badges/gpa.svg)](https://codeclimate.com/github/sensu-plugins/sensu-plugins-disk-checks)
 [![Test Coverage](https://codeclimate.com/github/sensu-plugins/sensu-plugins-disk-checks/badges/coverage.svg)](https://codeclimate.com/github/sensu-plugins/sensu-plugins-disk-checks)
+[![Dependency Status](https://gemnasium.com/sensu-plugins/sensu-plugins-disk-checks.svg)](https://gemnasium.com/sensu-plugins/sensu-plugins-disk-checks)
+[![Inline docs](http://inch-ci.org/github/sensu-plugins/sensu-plugins-disk-checks.svg?branch=master&style=shields)](http://inch-ci.org/github/sensu-plugins/sensu-plugins-disk-checks)
 
 ## Functionality
 
@@ -14,6 +16,10 @@ Check the output of dmesg for a given set of strings that may correspond to a fa
 **check-disk**
 
 Check disk capacity and inodes based upon the output of df.
+
+**check-disk-usage**
+
+Check disk capacity and inodes based upon the gem sys-filesystem.
 
 **check-fs-writeable**
 
@@ -46,6 +52,7 @@ Check the health of a disk using `smartctl`
 ## Files
  * bin/check-disk-fail.rb
  * bin/check-disk.rb
+ * bin/check-disk-usage.rb
  * bin/check-fs-writable.rb
  * bin/check-fstab-mounts.rb
  * bin/check-smart-status.rb
