@@ -24,4 +24,4 @@
 
 * refactored check-disk to use sys-filesystem gem instead of df, it is not 100% backwards compatible dur to the new use of objects vs, plain text
 * depreciated check-disk in favor of check-disk-usage, it will be removed in the first stable release
-* add pry, irb replacement, as a development dependency
+* add pry as a development dependency
