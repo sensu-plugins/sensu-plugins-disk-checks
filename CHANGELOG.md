@@ -25,4 +25,8 @@
 * refactored check-disk to use sys-filesystem gem instead of df, it is not 100% backwards compatible dur to the new use of objects vs, plain text
 * depreciated check-disk in favor of check-disk-usage, it will be removed in the first stable release
 * add pry as a development dependency
-* updated README with more detailed installation instructions 
+* updated README with more detailed installation instructions
+
+#### 0.0.1.alpha.5
+
+* remove check-fs-writable and place it in sensu-plugins-filesystem-checks
