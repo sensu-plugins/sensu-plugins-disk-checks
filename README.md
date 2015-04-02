@@ -112,7 +112,7 @@ Using the Sensu **sensu_gem** LWRP
 ```
 sensu_gem 'sensu-plugins-disk-checks' do
   options('--prerelease')
-  version '0.0.1.alpha.4'
+  version '0.0.1.alpha.6'
 end
 ```
 
@@ -120,7 +120,7 @@ Using the Chef **gem_package** resource
 ```
 gem_package 'sensu-plugins-process-checks' do
   options('--prerelease')
-  version '0.0.1.alpha.4'
+  version '0.0.1.alpha.6'
 end
 ```
 

@@ -30,3 +30,10 @@
 #### 0.0.1.alpha.5
 
 * remove check-fs-writable and place it in sensu-plugins-filesystem-checks
+
+#### 0.0.1.alpha.6
+
+* add Chef provisioning to Vagrantfile
+* add gem metadata
+* update contributing
+* fix rubocop issues to ensure passing status
