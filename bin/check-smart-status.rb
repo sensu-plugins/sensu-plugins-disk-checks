@@ -119,7 +119,7 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
 
   # Main function
   #
-  def run
+  def run # rubocop:disable all
     @smart_attributes = JSON.parse(IO.read(File.dirname(__FILE__) + '/smart.json'), symbolize_names: true)[:smart][:attributes]
     @smart_debug = config[:debug] == 'on'
 
@@ -227,7 +227,7 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
 
   # find all devices from /proc/partitions or from parameter
   #
-  def find_devices
+  def find_devices # rubocop:disable all
     # Return parameter value if it's defined
     return config[:devices].split(',') unless config[:devices] == 'all'
 

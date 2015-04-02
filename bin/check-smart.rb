@@ -108,7 +108,7 @@ class CheckSMART < Sensu::Plugin::Check::CLI
 
   # Main function
   #
-  def run
+  def run # rubocop:disable all
     # #YELLOW
     unless @devices.length > 0  # rubocop:disable IfUnlessModifier
       unknown 'No SMART capable devices found'

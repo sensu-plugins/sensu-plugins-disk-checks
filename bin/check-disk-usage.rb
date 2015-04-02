@@ -87,7 +87,7 @@ class CheckDisk < Sensu::Plugin::Check::CLI
 
   # Get mount data
   #
-  def fs_mounts
+  def fs_mounts # rubocop:disable all
     Filesystem.mounts.each do |line|
       begin
         next if config[:fstype] && !config[:fstype].include?(line.mount_type)

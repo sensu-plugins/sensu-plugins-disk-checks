@@ -96,7 +96,7 @@ class CheckDisk < Sensu::Plugin::Check::CLI
 
   # Read the output of `df` spliting the lines based upon their fields
   # This will check both blocks and inodes
-  def read_df
+  def read_df # rubocop:disable all
     `df -lPT`.split("\n").drop(1).each do |line|
       begin
         _fs, type, _blocks, _used, _avail, capacity, mnt = line.split
@@ -146,7 +146,7 @@ class CheckDisk < Sensu::Plugin::Check::CLI
 
   # Main function
   #
-  def run
+  def run # rubocop:disable all
     unknown 'Do not use -l and -L options concurrently' if config[:includeline] && config[:ignoreline]
     read_df
     unknown 'No filesystems found' unless @line_count > 0
