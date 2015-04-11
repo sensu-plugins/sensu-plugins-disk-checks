@@ -14,28 +14,28 @@ Gem::Specification.new do |s|
   s.authors                = ['Yieldbot, Inc. and contributors']
   s.cert_chain             = ['certs/sensu-plugins.pem']
   s.date                   = Date.today.to_s
-  s.description            = 'Sensu plugins for checking various disk hardware conditions'
+  s.description            = 'Sensu plugins for disk checks'
   s.email                  = '<sensu-users@googlegroups.com>'
   s.executables            = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.files                  = Dir.glob('{bin,lib}/**/*') + %w(LICENSE README.md CHANGELOG.md)
   s.homepage               = 'https://github.com/sensu-plugins/sensu-plugins-disk-checks'
   s.license                = 'MIT'
-  s.metadata               = { 'maintainer'         => '@mattyjones',
-                               'development_status' => 'active',
+  s.metadata               = { 'maintainer'         => '',
+                               'development_status' => 'unmaintained',
                                'production_status'  => 'unstable - testing recommended'
-                               }
-  s.name                   = 'sensu-plugins-sensu-plugins-disk-checks'
+  }
+  s.name                   = 'sensu-plugins-disk-checks'
   s.platform               = Gem::Platform::RUBY
   s.require_paths          = ['lib']
   s.required_ruby_version  = '>= 1.9.3'
   s.signing_key            = File.expand_path(pvt_key) if $PROGRAM_NAME =~ /gem\z/
-  s.summary                = 'Sensu plugins for checking various disk hardware conditions'
+  s.summary                = 'Sensu plugins for disk checks'
   s.test_files             = s.files.grep(%r{^(test|spec|features)/})
   s.version                = SensuPluginsDiskChecks::VERSION
 
-  s.add_runtime_dependency 'sensu-plugin',      '1.1.0'
-  s.add_runtime_dependency 'sys-filesystem',    '~> 1.1.4'
-  s.add_runtime_dependency 'filesystem',        '~> 0.1.0'
+  s.add_runtime_dependency 'sys-filesystem',  '1.1.4'
+  s.add_runtime_dependency 'filesystem',      '0.1.0'
+  s.add_runtime_dependency 'sensu-plugin',    '1.1.0'
 
   s.add_development_dependency 'codeclimate-test-reporter', '~> 0.4'
   s.add_development_dependency 'rubocop',                   '0.17.0'
