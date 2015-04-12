@@ -22,13 +22,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # None of the boxes have the chef-client installed,
   # this will install the latest version for provisioning
-  config.omnibus.chef_version = :latest
+  # config.omnibus.chef_version = :latest
 
   # Local Berkself configuration
   # This is used only if you add recipes to the boxes below.
   # All dependencies and such for the roles is done with a Berksfile
   # in GIR
-  config.berkshelf.enabled = true
+  # config.berkshelf.enabled = true
 
   # Box definitions
   # The roles and boxes can be found in the above configuration file
@@ -36,45 +36,45 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # lasting changes should be made against GIR unless they are repo specific
   config.vm.define 'cent5' do |cent5|
     cent5.vm.box = vagrant_config['cent5']['box']
-    cent5.vm.provision 'chef_zero' do |chef|
-      chef.roles_path = vagrant_config['cent5']['role_path']
-      vagrant_config['cent5']['role'].each do |r|
-        chef.add_role(r)
-      end
-      # chef.add_recipe 'apache2'
-    end
+    # cent5.vm.provision 'chef_zero' do |chef|
+    #   chef.roles_path = vagrant_config['cent5']['role_path']
+    #   vagrant_config['cent5']['role'].each do |r|
+    #     chef.add_role(r)
+    #   end
+    #   # chef.add_recipe 'apache2'
+    # end
   end
 
   config.vm.define 'cent6' do |cent6|
     cent6.vm.box = vagrant_config['cent6']['box']
-    cent6.vm.provision 'chef_zero' do |chef|
-      chef.roles_path = vagrant_config['cent6']['role_path']
-      vagrant_config['cent6']['role'].each do |r|
-        chef.add_role(r)
-      end
-      # chef.add_recipe 'apache2'
-    end
+    # cent6.vm.provision 'chef_zero' do |chef|
+    #   chef.roles_path = vagrant_config['cent6']['role_path']
+    #   vagrant_config['cent6']['role'].each do |r|
+    #     chef.add_role(r)
+    #   end
+    #   # chef.add_recipe 'apache2'
+    # end
   end
 
   config.vm.define 'cent7' do |cent7|
     cent7.vm.box = vagrant_config['cent7']['box']
-    cent7.vm.provision 'chef_zero' do |chef|
-      chef.roles_path = vagrant_config['cent7']['role_path']
-      vagrant_config['cent7']['role'].each do |r|
-        chef.add_role(r)
-      end
-      # chef.add_recipe 'apache2'
-    end
+    # cent7.vm.provision 'chef_zero' do |chef|
+    #   chef.roles_path = vagrant_config['cent7']['role_path']
+    #   vagrant_config['cent7']['role'].each do |r|
+    #     chef.add_role(r)
+    #   end
+    #   # chef.add_recipe 'apache2'
+    # end
   end
 
   config.vm.define 'ubuntu14' do |ubuntu14|
     ubuntu14.vm.box = vagrant_config['ubuntu14']['box']
-    ubuntu14.vm.provision 'chef_zero' do |chef|
-      chef.roles_path = vagrant_config['ubuntu14']['role_path']
-      vagrant_config['ubuntu14']['role'].each do |r|
-        chef.add_role(r)
-      end
-    end
+    # ubuntu14.vm.provision 'chef_zero' do |chef|
+    #   chef.roles_path = vagrant_config['ubuntu14']['role_path']
+    #   vagrant_config['ubuntu14']['role'].each do |r|
+    #     chef.add_role(r)
+    #   end
+    # end
   end
 
   # The bsd boxes have to be configured differently and require some
@@ -93,14 +93,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # Use rsync in place of shared folders
     bsd9.vm.synced_folder '.', '/vagrant', type: 'rsync'
-    bsd9.vm.provision 'chef_zero' do |chef|
-      chef.synced_folder_type = 'rsync'
-      chef.roles_path = vagrant_config['bsd9']['role_path']
-      vagrant_config['bsd9']['role'].each do |r|
-        chef.add_role(r)
-      end
-      # chef.add_recipe 'apache2'
-    end
+    # bsd9.vm.provision 'chef_zero' do |chef|
+    #   chef.synced_folder_type = 'rsync'
+    #   chef.roles_path = vagrant_config['bsd9']['role_path']
+    #   vagrant_config['bsd9']['role'].each do |r|
+    #     chef.add_role(r)
+    #   end
+    #   # chef.add_recipe 'apache2'
+    # end
   end
 
   config.vm.define 'freebsd10' do |bsd10|
@@ -109,13 +109,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # Use rsync in place of shared folders
     bsd10.vm.synced_folder '.', '/vagrant', type: 'rsync'
-    bsd10.vm.provision 'chef_zero' do |chef|
-      chef.synced_folder_type = 'rsync'
-      chef.roles_path = vagrant_config['bsd10']['role_path']
-      vagrant_config['bsd10']['role'].each do |r|
-        chef.add_role(r)
-      end
-      # chef.add_recipe 'apache2'
-    end
+    # bsd10.vm.provision 'chef_zero' do |chef|
+    #   chef.synced_folder_type = 'rsync'
+    #   chef.roles_path = vagrant_config['bsd10']['role_path']
+    #   vagrant_config['bsd10']['role'].each do |r|
+    #     chef.add_role(r)
+    #   end
+    #   # chef.add_recipe 'apache2'
+    # end
   end
 end

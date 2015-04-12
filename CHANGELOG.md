@@ -1,6 +1,10 @@
 Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+#### Pending
+
+remove check-disk.rb in favor of check-disk-usage.rb
+
 #### 0.0.1.alpha.6
 
 * add Chef provisioning to Vagrantfile
@@ -40,11 +44,3 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * pinned dependencies
 * built against 1.9.3, 2.0, 2.1
 * cryptographically signed
-
-
-
-
-
-
-
-

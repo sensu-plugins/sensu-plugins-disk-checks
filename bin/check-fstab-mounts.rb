@@ -53,7 +53,7 @@ class CheckFstabMounts < Sensu::Plugin::Check::CLI
 
   # Check by mount destination (col 2 in fstab and proc/mounts)
   #
-  def check_mounts # rubocop:disable all
+  def check_mounts
     @fstab.each do |line|
       next if line =~ /^\s*#/
       next if line =~ /^\s*$/

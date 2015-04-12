@@ -9,7 +9,7 @@
 #   plain text
 #
 # PLATFORMS:
-#   Linux, BSD, Solaris, Windows
+#   Linux, BSD, Windows
 #
 # DEPENDENCIES:
 #   gem: sensu-plugin
@@ -72,11 +72,6 @@ class CheckDisk < Sensu::Plugin::Check::CLI
          proc: proc(&:to_i),
          default: 95
 
-  option :debug,
-         short: '-d',
-         long: '--debug',
-         description: 'Output list of included filesystems'
-
   # Setup variables
   #
   def initialize
@@ -87,40 +82,43 @@ class CheckDisk < Sensu::Plugin::Check::CLI
 
   # Get mount data
   #
-  def fs_mounts # rubocop:disable all
+  def fs_mounts
     Filesystem.mounts.each do |line|
       begin
         next if config[:fstype] && !config[:fstype].include?(line.mount_type)
         next if config[:ignoretype] && config[:ignoretype].include?(line.mount_type)
         next if config[:ignoremnt] && config[:ignoremnt].include?(line.mount_point)
-        puts "Name: #{ line.name }  Mount Point: #{ line.mount_point }  FS Type: #{ line.mount_type }" if config[:debug]
       rescue
         unknown 'An error occured getting the mount info'
       end
-      @fs_info = Filesystem.stat(line.mount_point)
-      if percent_inodes >= config[:icrit]
-        @crit_fs << "#{line.mount_point} #{percent_inodes}% inode usage"
-      elsif percent_inodes >= config[:iwarn]
-        @warn_fs <<  "#{line.mount_point} #{percent_inodes}% inode usage"
-      end
-      if percent_bytes >= config[:bcrit]
-        @crit_fs << "#{line.mount_point} #{percent_bytes}% bytes usage"
-      elsif percent_bytes >= config[:bwarn]
-        @warn_fs <<  "#{line.mount_point} #{percent_bytes}% bytes usage"
-      end
+      check_mount(line)
+    end
+  end
+
+  def check_mount(line)
+    fs_info = Filesystem.stat(line.mount_point)
+    if percent_inodes(fs_info) >= config[:icrit]
+      @crit_fs << "#{line.mount_point} #{percent_inodes}% inode usage"
+    elsif percent_inodes(fs_info) >= config[:iwarn]
+      @warn_fs <<  "#{line.mount_point} #{percent_inodes}% inode usage"
+    end
+    if percent_bytes(fs_info) >= config[:bcrit]
+      @crit_fs << "#{line.mount_point} #{percent_bytes}% bytes usage"
+    elsif percent_bytes(fs_info) >= config[:bwarn]
+      @warn_fs <<  "#{line.mount_point} #{percent_bytes}% bytes usage"
     end
   end
 
   # Determine the percent inode usage
   #
-  def percent_inodes
-    (100.0 - (100.0 * @fs_info.inodes_free / @fs_info.inodes)).round(2)
+  def percent_inodes(fs_info)
+    (100.0 - (100.0 * fs_info.inodes_free / fs_info.inodes)).round(2)
   end
 
   # Determine the percent byte usage
   #
-  def percent_bytes
-    (100.0 - (100.0 * @fs_info.bytes_free / @fs_info.bytes_total)).round(2)
+  def percent_bytes(fs_info)
+    (100.0 - (100.0 * fs_info.bytes_free / fs_info.bytes_total)).round(2)
   end
 
   # Generate output
