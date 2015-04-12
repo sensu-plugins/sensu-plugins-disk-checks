@@ -4,6 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 #### Pending
 
 remove check-disk.rb in favor of check-disk-usage.rb
+remove check-disk-fail.rb in favor of sensu-plugins-logs/check-log.rb
 
 #### 0.0.1.alpha.6
 
