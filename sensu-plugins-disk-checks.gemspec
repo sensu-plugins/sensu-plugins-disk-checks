@@ -20,8 +20,8 @@ Gem::Specification.new do |s|
   s.files                  = Dir.glob('{bin,lib}/**/*') + %w(LICENSE README.md CHANGELOG.md)
   s.homepage               = 'https://github.com/sensu-plugins/sensu-plugins-disk-checks'
   s.license                = 'MIT'
-  s.metadata               = { 'maintainer'         => '',
-                               'development_status' => 'unmaintained',
+  s.metadata               = { 'maintainer'         => '@mattyjones',
+                               'development_status' => 'active',
                                'production_status'  => 'unstable - testing recommended'
   }
   s.name                   = 'sensu-plugins-disk-checks'
