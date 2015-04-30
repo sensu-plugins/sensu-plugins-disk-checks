@@ -22,8 +22,8 @@ Gem::Specification.new do |s|
   s.license                = 'MIT'
   s.metadata               = { 'maintainer'         => '@mattyjones',
                                'development_status' => 'active',
-                               'production_status'  => 'unstable - testing recommended'
-                               'releae_draft'       => 'false',
+                               'production_status'  => 'unstable - testing recommended',
+                               'release_draft'      => 'false',
                                'release_prerelease' => 'false'
   }
   s.name                   = 'sensu-plugins-disk-checks'
