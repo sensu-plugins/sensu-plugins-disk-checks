@@ -1,4 +1,4 @@
-require 'sensu-plugins-diskchecks/version'
+require 'sensu-plugins-disk-checks/version'
 
 # Load the defaults
 
