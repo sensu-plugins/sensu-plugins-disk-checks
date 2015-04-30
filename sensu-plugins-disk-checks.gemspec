@@ -11,7 +11,7 @@ end
 pvt_key = '~/.ssh/gem-private_key.pem'
 
 Gem::Specification.new do |s|
-  s.authors                = ['Yieldbot, Inc. and contributors']
+  s.authors                = ['Sensu-Plugins and contributors']
   s.cert_chain             = ['certs/sensu-plugins.pem']
   s.date                   = Date.today.to_s
   s.description            = 'Sensu plugins for disk checks'
@@ -23,22 +23,25 @@ Gem::Specification.new do |s|
   s.metadata               = { 'maintainer'         => '@mattyjones',
                                'development_status' => 'active',
                                'production_status'  => 'unstable - testing recommended'
+                               'releae_draft'       => 'false',
+                               'release_prerelease' => 'false'
   }
   s.name                   = 'sensu-plugins-disk-checks'
   s.platform               = Gem::Platform::RUBY
+  s.post_install_message   = 'You can use the embedded Ruby by setting EMBEDDED_RUBY=true in /etc/default/sensu'
   s.require_paths          = ['lib']
   s.required_ruby_version  = '>= 1.9.3'
   s.signing_key            = File.expand_path(pvt_key) if $PROGRAM_NAME =~ /gem\z/
   s.summary                = 'Sensu plugins for disk checks'
   s.test_files             = s.files.grep(%r{^(test|spec|features)/})
-  s.version                = SensuPluginsDiskChecks::VERSION
+  s.version                = SensuPluginsDiskChecks::Version::VER_STRING
 
   s.add_runtime_dependency 'sys-filesystem',  '1.1.4'
   s.add_runtime_dependency 'filesystem',      '0.1.0'
   s.add_runtime_dependency 'sensu-plugin',    '1.1.0'
 
   s.add_development_dependency 'codeclimate-test-reporter', '~> 0.4'
-  s.add_development_dependency 'rubocop',                   '0.30.0'
+  s.add_development_dependency 'rubocop',                   '~> 0.30'
   s.add_development_dependency 'rspec',                     '~> 3.1'
   s.add_development_dependency 'bundler',                   '~> 1.7'
   s.add_development_dependency 'rake',                      '~> 10.0'

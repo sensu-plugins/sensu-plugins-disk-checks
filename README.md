@@ -5,7 +5,7 @@
 [![Code Climate](https://codeclimate.com/github/sensu-plugins/sensu-plugins-disk-checks/badges/gpa.svg)](https://codeclimate.com/github/sensu-plugins/sensu-plugins-disk-checks)
 [![Test Coverage](https://codeclimate.com/github/sensu-plugins/sensu-plugins-disk-checks/badges/coverage.svg)](https://codeclimate.com/github/sensu-plugins/sensu-plugins-disk-checks)
 [![Dependency Status](https://gemnasium.com/sensu-plugins/sensu-plugins-disk-checks.svg)](https://gemnasium.com/sensu-plugins/sensu-plugins-disk-checks)
-
+[ ![Codeship Status for sensu-plugins/sensu-plugins-disk-checks](https://codeship.com/projects/a78630e0-cc5b-0132-01ab-7a3494c6b360/status?branch=master)](https://codeship.com/projects/76007)
 ## Functionality
 
 **check-disk-fail**
@@ -89,39 +89,6 @@ This is a sample input file used by check-smart-status, see the script for furth
 
 ## Installation
 
-Add the public key (if you haven’t already) as a trusted certificate
-
-```
-gem cert --add <(curl -Ls https://raw.githubusercontent.com/sensu-plugins/sensu-plugins.github.io/master/certs/sensu-plugins.pem)
-gem install <gem> -P MediumSecurity
-```
-
-You can also download the key from /certs/ within each repository.
-
-#### Rubygems
-
-`gem install sensu-plugins-disk-checks`
-
-#### Bundler
-
-Add *sensu-plugins-disk-checks* to your Gemfile and run `bundle install` or `bundle update`
-
-#### Chef
-
-Using the Sensu **sensu_gem** LWRP
-```
-sensu_gem 'sensu-plugins-disk-checks' do
-  options('--prerelease')
-  version '0.0.1.alpha.6'
-end
-```
-
-Using the Chef **gem_package** resource
-```
-gem_package 'sensu-plugins-process-checks' do
-  options('--prerelease')
-  version '0.0.1.alpha.6'
-end
-```
+[Installation and Setup](https://github.com/sensu-plugins/documentation/blob/master/user_docs/installation_instructions.md)
 
 ## Notes

@@ -1,7 +1,14 @@
+require 'sensu-plugins-diskchecks/version'
+
+# Load the defaults
+
 #
-# Set gem version
+# Default class
 #
 module SensuPluginsDiskChecks
-  # Gem version
-  VERSION = '0.0.1.alpha.5'
+  class << self
+  end
+
+  class << self
+  end
 end
