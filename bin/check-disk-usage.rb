@@ -97,17 +97,19 @@ class CheckDisk < Sensu::Plugin::Check::CLI
 
   def check_mount(line)
     fs_info = Filesystem.stat(line.mount_point)
-    if @fs_info.respond_to?(:inodes) # needed for windows
-      if percent_inodes(fs_info) >= config[:icrit]
-        @crit_fs << "#{line.mount_point} #{percent_inodes}% inode usage"
-      elsif percent_inodes(fs_info) >= config[:iwarn]
-        @warn_fs << "#{line.mount_point} #{percent_inodes}% inode usage"
+    if fs_info.respond_to?(:inodes) # needed for windows
+      percent_i = percent_inodes(fs_info)
+      if percent_i >= config[:icrit]
+        @crit_fs << "#{line.mount_point} #{percent_i}% inode usage"
+      elsif percent_i >= config[:iwarn]
+        @warn_fs << "#{line.mount_point} #{percent_i}% inode usage"
       end
     end
-    if percent_bytes(fs_info) >= config[:bcrit]
-      @crit_fs << "#{line.mount_point} #{percent_bytes}% bytes usage"
-    elsif percent_bytes(fs_info) >= config[:bwarn]
-      @warn_fs << "#{line.mount_point} #{percent_bytes}% bytes usage"
+    percent_b = percent_bytes(fs_info)
+    if percent_b >= config[:bcrit]
+      @crit_fs << "#{line.mount_point} #{percent_b}% bytes usage"
+    elsif percent_b >= config[:bwarn]
+      @warn_fs << "#{line.mount_point} #{percent_b}% bytes usage"
     end
   end
 
