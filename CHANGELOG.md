@@ -5,6 +5,7 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## Unreleased][unreleased]
 
+## [0.0.4] - 2015-06-22
 ### Fixed
 - Correct check of inodes method on object fs_info which was always returning false
 
