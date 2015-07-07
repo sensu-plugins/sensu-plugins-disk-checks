@@ -56,9 +56,9 @@ Check the health of a disk using `smartctl`
  * bin/check-fstab-mounts.rb
  * bin/check-smart-status.rb
  * bin/check-smart.rb
- * bin/disk-metrics.rb
- * bin/disk-capacity-metrics.rb
- * bin/disk-usage-metrics.rb
+ * bin/metrics-disk.rb
+ * bin/metrics-disk-capacity.rb
+ * bin/metrics-disk-usage.rb
 
 ## Usage
 
@@ -89,6 +89,6 @@ This is a sample input file used by check-smart-status, see the script for furth
 
 ## Installation
 
-[Installation and Setup](https://github.com/sensu-plugins/documentation/blob/master/user_docs/installation_instructions.md)
+[Installation and Setup](http://sensu-plugins.io/docs/installation_instructions.html)
 
 ## Notes
