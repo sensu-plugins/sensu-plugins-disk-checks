@@ -5,7 +5,7 @@
 [![Code Climate](https://codeclimate.com/github/sensu-plugins/sensu-plugins-disk-checks/badges/gpa.svg)](https://codeclimate.com/github/sensu-plugins/sensu-plugins-disk-checks)
 [![Test Coverage](https://codeclimate.com/github/sensu-plugins/sensu-plugins-disk-checks/badges/coverage.svg)](https://codeclimate.com/github/sensu-plugins/sensu-plugins-disk-checks)
 [![Dependency Status](https://gemnasium.com/sensu-plugins/sensu-plugins-disk-checks.svg)](https://gemnasium.com/sensu-plugins/sensu-plugins-disk-checks)
-[ ![Codeship Status for sensu-plugins/sensu-plugins-disk-checks](https://codeship.com/projects/a78630e0-cc5b-0132-01ab-7a3494c6b360/status?branch=master)](https://codeship.com/projects/76007)
+[![Codeship Status for sensu-plugins/sensu-plugins-disk-checks](https://codeship.com/projects/a78630e0-cc5b-0132-01ab-7a3494c6b360/status?branch=master)](https://codeship.com/projects/76007)
 ## Functionality
 
 **check-disk-fail**
@@ -92,3 +92,4 @@ This is a sample input file used by check-smart-status, see the script for furth
 [Installation and Setup](http://sensu-plugins.io/docs/installation_instructions.html)
 
 ## Notes
+
