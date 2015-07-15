@@ -3,7 +3,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
-## Unreleased][unreleased]
+## Unreleased
 
 ## [1.0.1] - 2015-07-14
 ### Changed
@@ -30,7 +30,7 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 ## [0.0.2] - 2015-04-21
 ### Fixed
 - deployment issue
- 
+
 ## [0.0.1] - 2015-04-21
 ### Added
 - initial release
