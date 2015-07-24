@@ -56,7 +56,7 @@ class DiskCapacity < Sensu::Plugin::Metric::CLI::Graphite
 
   # Main function
   #
-  def run # rubocop:disable all
+  def run
     # Get capacity metrics from DF as they don't appear in /proc
     `df -PT`.split("\n").drop(1).each do |line|
       begin

@@ -227,7 +227,7 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
 
   # find all devices from /proc/partitions or from parameter
   #
-  def find_devices # rubocop:disable all
+  def find_devices
     # Return parameter value if it's defined
     return config[:devices].split(',') unless config[:devices] == 'all'
 

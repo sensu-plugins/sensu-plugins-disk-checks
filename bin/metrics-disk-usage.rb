@@ -92,7 +92,7 @@ class DiskUsageMetrics < Sensu::Plugin::Metric::CLI::Graphite
 
   # Main function
   #
-  def run # rubocop:disable all
+  def run
     delim = config[:flatten] == true ? '_' : '.'
     # Get disk usage from df with used and avail in megabytes
     # #YELLOW

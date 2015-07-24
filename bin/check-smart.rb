@@ -108,11 +108,8 @@ class CheckSMART < Sensu::Plugin::Check::CLI
 
   # Main function
   #
-  def run # rubocop:disable all
-    # #YELLOW
-    unless @devices.length > 0  # rubocop:disable IfUnlessModifier
-      unknown 'No SMART capable devices found'
-    end
+  def run
+    unknown 'No SMART capable devices found' unless @devices.length > 0
 
     unhealthy_disks = @devices.select { |disk| disk.smart_capable? && !disk.healthy? }
     unknown_disks = @devices.reject(&:smart_capable?)

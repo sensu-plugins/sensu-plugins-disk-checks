@@ -50,7 +50,7 @@ class DiskGraphite < Sensu::Plugin::Metric::CLI::Graphite
          default: false
 
   # Main function
-  def run # rubocop:disable all
+  def run
     # http://www.kernel.org/doc/Documentation/iostats.txt
     metrics = %w(reads readsMerged sectorsRead readTime writes writesMerged sectorsWritten writeTime ioInProgress ioTime ioTimeWeighted)
 
