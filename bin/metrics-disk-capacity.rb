@@ -39,7 +39,7 @@ class DiskCapacity < Sensu::Plugin::Metric::CLI::Graphite
   option :scheme,
          description: 'Metric naming scheme, text to prepend to .$parent.$child',
          long: '--scheme SCHEME',
-         default: "#{Socket.gethostname}.disk"
+         default: "#{Socket.gethostname}"
 
   # Unused ?
   #
@@ -48,7 +48,6 @@ class DiskCapacity < Sensu::Plugin::Metric::CLI::Graphite
       begin
         converted = Integer(value)
         values[index] = converted
-        # #YELLOW
       rescue ArgumentError # rubocop:disable HandleExceptions
       end
     end
