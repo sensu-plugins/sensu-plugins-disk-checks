@@ -3,7 +3,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
-## Unreleased
+## [Unreleased][unreleased]
+- nothing
+
+## [1.0.2] - 2015-08-04
+### Changed
+- general cleanup
 
 ## [1.0.1] - 2015-07-14
 ### Changed
@@ -12,7 +17,7 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 ##[1.0.0] - 2015-07-05
 ### Changed
 - changed metrics filenames to conform to std
-- updated Rakfile to remove cruft
+- updated Rakefile to remove cruft
 - updated documentation links in README and CONTRIBUTING
 - updated gemspec to put deps in alpha order
 
@@ -34,5 +39,3 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 ## [0.0.1] - 2015-04-21
 ### Added
 - initial release
-
-

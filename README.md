@@ -92,4 +92,3 @@ This is a sample input file used by check-smart-status, see the script for furth
 [Installation and Setup](http://sensu-plugins.io/docs/installation_instructions.html)
 
 ## Notes
-
