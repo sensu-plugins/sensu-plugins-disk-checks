@@ -119,7 +119,7 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
 
   # Main function
   #
-  def run # rubocop:disable all
+  def run
     @smart_attributes = JSON.parse(IO.read(File.dirname(__FILE__) + '/smart.json'), symbolize_names: true)[:smart][:attributes]
     @smart_debug = config[:debug] == 'on'
 
@@ -183,7 +183,7 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
       end
 
       # #YELLOW
-      output[dev].split("\n").each do |line| # rubocop:disable Style/Next
+      output[dev].split("\n").each do |line|
         fields = line.split
         if fields.size == 10 && fields[0].to_i != 0 && att_check_list.include?(fields[0].to_i)
           smart_att = @smart_attributes.find { |att| att[:id] == fields[0].to_i }

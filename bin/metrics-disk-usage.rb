@@ -96,7 +96,7 @@ class DiskUsageMetrics < Sensu::Plugin::Metric::CLI::Graphite
     delim = config[:flatten] == true ? '_' : '.'
     # Get disk usage from df with used and avail in megabytes
     # #YELLOW
-    `df -PB#{config[:block_size]} #{config[:local] ? '-l' : ''}`.split("\n").drop(1).each do |line| # rubocop:disable Style/Next
+    `df -PB#{config[:block_size]} #{config[:local] ? '-l' : ''}`.split("\n").drop(1).each do |line|
       _, _, used, avail, used_p, mnt = line.split
 
       unless %r{/sys|/dev|/run}.match(mnt)
