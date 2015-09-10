@@ -117,11 +117,11 @@ class CheckDisk < Sensu::Plugin::Check::CLI
 
   # Adjust the percentages based on volume size
   #
-  def adj_percent(size,percent)
-    hsize = (size / (1024.0 * 1024.0 )) / config[:normal].to_f
-    felt  = hsize ** config[:magic]
+  def adj_percent(size, percent)
+    hsize = (size / (1024.0 * 1024.0)) / config[:normal].to_f
+    felt  = hsize**config[:magic]
     scale = felt / hsize
-    100 - (( 100 - percent ) * scale)
+    100 - ((100 - percent) * scale)
   end
 
   def check_mount(line)
@@ -136,12 +136,12 @@ class CheckDisk < Sensu::Plugin::Check::CLI
     end
     percent_b = percent_bytes(fs_info)
 
-    if fs_info.bytes_total < (config[:minimum] * 1000000000)
+    if fs_info.bytes_total < (config[:minimum] * 1_000_000_000)
       bcrit = config[:bcrit]
       bwarn = config[:bwarn]
     else
-      bcrit = adj_percent(fs_info.bytes_total,config[:bcrit])
-      bwarn = adj_percent(fs_info.bytes_total,config[:bwarn])
+      bcrit = adj_percent(fs_info.bytes_total, config[:bcrit])
+      bwarn = adj_percent(fs_info.bytes_total, config[:bwarn])
     end
 
     used = to_human(fs_info.bytes_used)
@@ -155,7 +155,7 @@ class CheckDisk < Sensu::Plugin::Check::CLI
   end
 
   def to_human(s)
-    prefix = %W(TiB GiB MiB KiB B)
+    prefix = %w(TiB GiB MiB KiB B)
     s.to_f
     i = prefix.length - 1
     while s > 512 && i > 0
