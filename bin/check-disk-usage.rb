@@ -72,6 +72,26 @@ class CheckDisk < Sensu::Plugin::Check::CLI
          proc: proc(&:to_i),
          default: 95
 
+  option :magic,
+         short: '-m MAGIC',
+         description: 'Magic factor to adjust warn/crit thresholds. Example: .9',
+         proc: proc(&:to_f),
+         default: 1.0
+
+  option :normal,
+         short: '-n NORMAL',
+         description: 'Levels are not adapted for filesystems of excatly this '\
+          'size, where levels are reduced for smaller filesystems and raised '\
+          'for larger filesystems.',
+         proc: proc(&:to_f),
+         default: 20
+
+  option :minimum,
+         short: '-l MINIMUM',
+         description: 'Minimum size to adjust (in GB)',
+         proc: proc(&:to_f),
+         default: 100
+
   # Setup variables
   #
   def initialize
@@ -95,6 +115,15 @@ class CheckDisk < Sensu::Plugin::Check::CLI
     end
   end
 
+  # Adjust the percentages based on volume size
+  #
+  def adj_percent(size, percent)
+    hsize = (size / (1024.0 * 1024.0)) / config[:normal].to_f
+    felt  = hsize**config[:magic]
+    scale = felt / hsize
+    100 - ((100 - percent) * scale)
+  end
+
   def check_mount(line)
     fs_info = Filesystem.stat(line.mount_point)
     if fs_info.respond_to?(:inodes) # needed for windows
@@ -106,11 +135,34 @@ class CheckDisk < Sensu::Plugin::Check::CLI
       end
     end
     percent_b = percent_bytes(fs_info)
-    if percent_b >= config[:bcrit]
-      @crit_fs << "#{line.mount_point} #{percent_b}% bytes usage"
-    elsif percent_b >= config[:bwarn]
-      @warn_fs << "#{line.mount_point} #{percent_b}% bytes usage"
+
+    if fs_info.bytes_total < (config[:minimum] * 1_000_000_000)
+      bcrit = config[:bcrit]
+      bwarn = config[:bwarn]
+    else
+      bcrit = adj_percent(fs_info.bytes_total, config[:bcrit])
+      bwarn = adj_percent(fs_info.bytes_total, config[:bwarn])
     end
+
+    used = to_human(fs_info.bytes_used)
+    total = to_human(fs_info.bytes_total)
+
+    if percent_b >= bcrit
+      @crit_fs << "#{line.mount_point} #{percent_b}% bytes usage (#{used}/#{total})"
+    elsif percent_b >= bwarn
+      @warn_fs << "#{line.mount_point} #{percent_b}% bytes usage (#{used}/#{total})"
+    end
+  end
+
+  def to_human(s)
+    prefix = %w(TiB GiB MiB KiB B)
+    s.to_f
+    i = prefix.length - 1
+    while s > 512 && i > 0
+      s /= 1024
+      i -= 1
+    end
+    ((s > 9 || s.modulo(1) < 0.1 ? '%d' : '%.1f') % s) + ' ' + prefix[i]
   end
 
   # Determine the percent inode usage

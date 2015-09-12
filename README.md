@@ -20,6 +20,22 @@ Check disk capacity and inodes based upon the output of df.
 
 Check disk capacity and inodes based upon the gem sys-filesystem.
 
+Can adjust thresholds for larger filesystems by providing a 'magic factor'
+(`-m`).  The default, `1.0`, will not adapt threshold percentages for volumes.
+
+The `-l` option can be used in combination with the 'magic factor' to specify
+the minimum size volume to adjust the thresholds for.
+
+Refer to [check_mk's](https://mathias-kettner.de/checkmk_filesystems.html)
+documentation on adaptive thresholds.
+
+You can also visualize the adjustment using
+[WolframAlpha]([https://www.wolframalpha.com/input/) with the following:
+
+    y = 100 - (100-P)*(N^(1-m))/(x^(1-m)), y = P for x in 0 to 1024
+
+Where P = base percentage, N = normalize factor, and m = magic factor
+
 **check-fs-writeable**
 
 Check to make sure a filesytem is writable.  This will check both proc and do a smoke test of each given mountpoint.  It can also auto-discover mount points in the self namespace.
