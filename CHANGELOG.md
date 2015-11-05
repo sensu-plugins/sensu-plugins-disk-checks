@@ -4,7 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased][unreleased]
-- nothing
+- Adds Ignore option to exclude mount point(s) based on regular expression
 
 ## [1.0.3] - 2015-10-25
 ### Changed
