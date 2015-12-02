@@ -50,7 +50,7 @@ class DiskGraphite < Sensu::Plugin::Metric::CLI::Graphite
          short: '-c',
          long: '--convert',
          default: false
-         
+
   option :ignore_device,
          description: 'Ignore devices matching pattern(s)',
          short: '-i DEV[,DEV]',
@@ -75,7 +75,7 @@ class DiskGraphite < Sensu::Plugin::Metric::CLI::Graphite
         dev = `lsblk -P -o NAME /dev/"#{dev}"| cut -d\\" -f2`.lines.first.chomp! if dev =~ /^dm-.*$/
       end
       next if stats == ['0'].cycle.take(stats.size)
-      
+
       next if config[:ignore_device] && config[:ignore_device].find { |x| dev.match(x) }
       next if config[:include_device] && !config[:include_device].find { |x| dev.match(x) }
 
