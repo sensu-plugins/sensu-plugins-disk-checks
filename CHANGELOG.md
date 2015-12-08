@@ -3,8 +3,18 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
-## [Unreleased][unreleased]
-- Adds Ignore option to exclude mount point(s) based on regular expression
+## Unreleased
+
+## [1.1.0] - 2015-12-08
+### Added
+- check-disk-usage.rb: Add ignore option to exclude mount point(s) based on regular expression
+- metrics-disk.rb: Add ignore and include options to exclude or include devices
+
+### Fixed
+- check-disk-usage.rb: Don't blow up when unable to read a filesystem
+
+### Removed
+- Remove dependency on `filesystem` gem
 
 ## [1.0.3] - 2015-10-25
 ### Changed
