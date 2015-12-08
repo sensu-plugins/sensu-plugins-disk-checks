@@ -1,20 +1,12 @@
 ## Sensu-Plugins-disk-checks
 
-[ ![Build Status](https://travis-ci.org/sensu-plugins/sensu-plugins-disk-checks.svg?branch=master)](https://travis-ci.org/sensu-plugins/sensu-plugins-disk-checks)
+[![Build Status](https://travis-ci.org/sensu-plugins/sensu-plugins-disk-checks.svg?branch=master)](https://travis-ci.org/sensu-plugins/sensu-plugins-disk-checks)
 [![Gem Version](https://badge.fury.io/rb/sensu-plugins-disk-checks.svg)](http://badge.fury.io/rb/sensu-plugins-disk-checks)
 [![Code Climate](https://codeclimate.com/github/sensu-plugins/sensu-plugins-disk-checks/badges/gpa.svg)](https://codeclimate.com/github/sensu-plugins/sensu-plugins-disk-checks)
 [![Test Coverage](https://codeclimate.com/github/sensu-plugins/sensu-plugins-disk-checks/badges/coverage.svg)](https://codeclimate.com/github/sensu-plugins/sensu-plugins-disk-checks)
 [![Dependency Status](https://gemnasium.com/sensu-plugins/sensu-plugins-disk-checks.svg)](https://gemnasium.com/sensu-plugins/sensu-plugins-disk-checks)
 [![Codeship Status for sensu-plugins/sensu-plugins-disk-checks](https://codeship.com/projects/a78630e0-cc5b-0132-01ab-7a3494c6b360/status?branch=master)](https://codeship.com/projects/76007)
 ## Functionality
-
-**check-disk-fail**
-
-Check the output of dmesg for a given set of strings that may correspond to a failure
-
-**check-disk**
-
-Check disk capacity and inodes based upon the output of df.
 
 **check-disk-usage**
 
@@ -36,23 +28,19 @@ You can also visualize the adjustment using
 
 Where P = base percentage, N = normalize factor, and m = magic factor
 
-**check-fs-writeable**
-
-Check to make sure a filesytem is writable.  This will check both proc and do a smoke test of each given mountpoint.  It can also auto-discover mount points in the self namespace.
-
 **check-fstab-mounts**
 
 Check the mount points in */etc/fstab* to ensure they are all accounted for.
 
-**disk-capacity-metrics**
+**metrics-disk-capacity**
 
 Acquire disk capacity metrics from `df` and convert them to a form usable by graphite
 
-**disk-metrics**
+**metrics-disk**
 
 Read */proc/iostats* for disk metrics and put them in a form usable by Graphite.  See [iostats.txt](http://www.kernel.org/doc/Documentation/iostats.txt) for more details.
 
-**disk-usage-metrics**
+**metrics-disk-uasage**
 
 Based on disk-capacity-metrics.rb by bhenerey and nstielau. The difference here being how the key is defined in graphite and the size we emit to graphite(now using megabytes), inode info has also been dropped.
 
@@ -65,10 +53,7 @@ Check the SMART status of hardrives and alert based upon a given set of threshol
 Check the health of a disk using `smartctl`
 
 ## Files
- * bin/check-disk-fail.rb
- * bin/check-disk.rb
  * bin/check-disk-usage.rb
- * bin/check-fs-writable.rb
  * bin/check-fstab-mounts.rb
  * bin/check-smart-status.rb
  * bin/check-smart.rb
