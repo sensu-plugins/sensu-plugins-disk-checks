@@ -143,7 +143,7 @@ class CheckDisk < Sensu::Plugin::Check::CLI
       @warn_fs << "#{line.mount_point} Unable to read."
       return
     end
-    if fs_info.respond_to?(:inodes) # needed for windows
+    if fs_info.respond_to?(:inodes) && !fs_info.inodes.nil? # needed for windows
       percent_i = percent_inodes(fs_info)
       if percent_i >= config[:icrit]
         @crit_fs << "#{line.mount_point} #{percent_i}% inode usage"

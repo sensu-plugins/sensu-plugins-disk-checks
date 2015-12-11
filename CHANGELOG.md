@@ -5,6 +5,11 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## Unreleased
 
+## [1.1.1] - 2015-12-11
+## Fixed
+- check-disk-usage.rb fails on Windows with sys-filesystem (1.1.4)
+- bump sys-filesystem to 1.1.5
+
 ## [1.1.0] - 2015-12-08
 ### Added
 - check-disk-usage.rb: Add ignore option to exclude mount point(s) based on regular expression
