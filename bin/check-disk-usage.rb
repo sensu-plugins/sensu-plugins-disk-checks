@@ -95,7 +95,7 @@ class CheckDisk < Sensu::Plugin::Check::CLI
 
   option :normal,
          short: '-n NORMAL',
-         description: 'Levels are not adapted for filesystems of excatly this '\
+         description: 'Levels are not adapted for filesystems of exactly this '\
           'size, where levels are reduced for smaller filesystems and raised '\
           'for larger filesystems.',
          proc: proc(&:to_f),
