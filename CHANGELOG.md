@@ -4,6 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## Unreleased
+
+## [1.1.2] - 2015-12-14
 ### Added
 - check-disk-usage.rb: Add option to include only certain mount points
 
