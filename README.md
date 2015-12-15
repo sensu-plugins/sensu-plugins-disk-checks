@@ -93,3 +93,8 @@ This is a sample input file used by check-smart-status, see the script for furth
 [Installation and Setup](http://sensu-plugins.io/docs/installation_instructions.html)
 
 ## Notes
+
+### Certification Verification
+
+If you are verifying certificates in the gem install you will need the certificate for the `sys-filesystem` gem loaded
+in the gem certificate store. That cert can be found [here](https://raw.githubusercontent.com/djberg96/sys-filesystem/ffi/certs/djberg96_pub.pem).
