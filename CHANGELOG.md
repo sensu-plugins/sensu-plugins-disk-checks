@@ -4,9 +4,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## Unreleased
+### Added
+- check-disk-usage.rb: Add option to include only certain mount points
 
 ## [1.1.1] - 2015-12-11
-## Fixed
+### Fixed
 - check-disk-usage.rb fails on Windows with sys-filesystem (1.1.4)
 - bump sys-filesystem to 1.1.5
 
