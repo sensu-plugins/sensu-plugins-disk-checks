@@ -48,6 +48,11 @@ class CheckDisk < Sensu::Plugin::Check::CLI
          description: 'Ignore mount point(s)',
          proc: proc { |a| a.split(',') }
 
+  option :includemnt,
+         description: 'Include only mount point(s)',
+         short: '-I MNT[,MNT]',
+         proc: proc { |a| a.split(',') }
+
   option :ignorepathre,
          short: '-p PATHRE',
          description: 'Ignore mount point(s) matching regular expression',
@@ -120,6 +125,7 @@ class CheckDisk < Sensu::Plugin::Check::CLI
         next if config[:ignoremnt] && config[:ignoremnt].include?(line.mount_point)
         next if config[:ignorepathre] && config[:ignorepathre].match(line.mount_point)
         next if config[:ignoreopt] && config[:ignoreopt].include?(line.options)
+        next if config[:includemnt] && !config[:includemnt].include?(line.mount_point)
       rescue
         unknown 'An error occured getting the mount info'
       end
