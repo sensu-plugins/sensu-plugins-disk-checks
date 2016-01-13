@@ -178,15 +178,10 @@ class CheckDisk < Sensu::Plugin::Check::CLI
   end
 
   def to_human(s)
-    prefix = %w(TiB GiB MiB KiB B)
-    s.to_f
-    i = prefix.length - 1
-    while s > 512 && i > 0
-      s /= 1024
-      i -= 1
-    end
-    ((s > 9 || s.modulo(1) < 0.1 ? '%d' : '%.1f') % s) + ' ' + prefix[i]
+    unit = [[1099511627776, "TiB"],[1073741824, "GiB"], [1048576, "MiB"], [1024, "KiB"], [0,"B"]].detect{ |u| s > u[0] }
+    "#{s/unit[0]} #{unit[1]}"
   end
+
 
   # Determine the percent inode usage
   #
