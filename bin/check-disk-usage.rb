@@ -178,8 +178,8 @@ class CheckDisk < Sensu::Plugin::Check::CLI
   end
 
   def to_human(s)
-    unit = [[1099511627776, "TiB"],[1073741824, "GiB"], [1048576, "MiB"], [1024, "KiB"], [0,"B"]].detect{ |u| s > u[0] }
-    "#{s/unit[0]} #{unit[1]}"
+    unit = [[1099511627776, "TiB"],[1073741824, "GiB"], [1048576, "MiB"], [1024, "KiB"], [0,"B"]].detect{ |u| s >= u[0] }
+    "#{s > 0 ? s/unit[0] : s} #{unit[1]}"
   end
 
 
