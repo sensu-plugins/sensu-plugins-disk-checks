@@ -241,7 +241,11 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
     devices = []
     all.each do |line|
       partition = line.scan(/\w+/).last.scan(/^\D+$/).first
-      devices << partition unless partition.nil?
+      next if partition.nil?
+      output = `sudo #{config[:binary]} -i /dev/#{partition}`
+      available = !output.scan(/SMART support is: Available/).empty?
+      enabled = !output.scan(/SMART support is: Enabled/).empty?
+      devices << partition if available && enabled
     end
 
     devices
