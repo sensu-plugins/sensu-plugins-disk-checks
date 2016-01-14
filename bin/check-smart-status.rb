@@ -72,6 +72,13 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
          required: false,
          default: 'smartctl'
 
+  option :json,
+         short: '-j path/to/smart.json',
+         long: '--json path/to/smart.json',
+         description: 'Path to SMART attributes JSON file',
+         required: false,
+         default: File.dirname(__FILE__) + '/smart.json'
+
   option :defaults,
          short: '-d 0,0,0,0',
          long: '--defaults 0,0,0,0',
@@ -120,7 +127,7 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
   # Main function
   #
   def run
-    @smart_attributes = JSON.parse(IO.read(File.dirname(__FILE__) + '/smart.json'), symbolize_names: true)[:smart][:attributes]
+    @smart_attributes = JSON.parse(IO.read(config[:json]), symbolize_names: true)[:smart][:attributes]
     @smart_debug = config[:debug] == 'on'
 
     # Set default threshold

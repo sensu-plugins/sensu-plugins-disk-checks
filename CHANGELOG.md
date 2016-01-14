@@ -5,6 +5,7 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## Unreleased
 ### Changed
+- Adds --json option to check-smart-status.rb
 - Let check-smart-status.rb skip SMART incapable disks
 
 ## [1.1.2] - 2015-12-14
