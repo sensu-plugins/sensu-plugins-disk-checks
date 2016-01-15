@@ -5,7 +5,7 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## Unreleased
 
-[1.1.3] - 2016-01-15
+## [1.1.3] - 2016-01-15
 ### Added
 - Add --json option to check-smart-status.rb
 
