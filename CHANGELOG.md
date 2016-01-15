@@ -4,9 +4,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## Unreleased
+
+[1.1.3] - 2016-01-15
+### Added
+- Add --json option to check-smart-status.rb
+
 ### Changed
-- Adds --json option to check-smart-status.rb
 - Let check-smart-status.rb skip SMART incapable disks
+
+### Fixed
+- metrics-disk-usage.rb: fix regular expression in unless statement
+- check-disk-usage.rb: fix wrong TiB formatting in to_human function
 
 ## [1.1.2] - 2015-12-14
 ### Added
