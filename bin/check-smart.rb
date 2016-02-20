@@ -53,7 +53,7 @@ class Disk
     check_health! if smart_capable?
   end
   attr_reader :capability_output, :health_output, :smart_healthy
-  alias_method :healthy?, :smart_healthy
+  alias healthy? smart_healthy
 
   # Is the device SMART capable and enabled
   #

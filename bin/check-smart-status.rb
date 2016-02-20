@@ -132,7 +132,7 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
 
     # Set default threshold
     default_threshold = config[:defaults].split(',')
-    fail 'Invalid default threshold parameter count' unless default_threshold.size == 4
+    raise 'Invalid default threshold parameter count' unless default_threshold.size == 4
     @smart_attributes.each do |att|
       att[:crit_min] = default_threshold[0].to_i if att[:crit_min].nil?
       att[:warn_min] = default_threshold[1].to_i if att[:warn_min].nil?
@@ -144,7 +144,7 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
     unless config[:threshold].nil?
       thresholds = config[:threshold].split(',')
       # Check threshold parameter length
-      fail 'Invalid threshold parameter count' unless thresholds.size % 5 == 0
+      raise 'Invalid threshold parameter count' unless thresholds.size % 5 == 0
 
       (0..(thresholds.size / 5 - 1)).each do |i|
         att_id = @smart_attributes.index { |att| att[:id] == thresholds[i + 0].to_i }
@@ -203,7 +203,7 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
             warnings << "#{dev} warning #{fields[0]} #{smart_att[:name]}: #{att_value}"
             puts "#{fields[0]} #{smart_att[:name]}: #{att_value} (warning)" if @smart_debug
           else
-            puts "#{fields[0]} #{smart_att[:name]}: #{att_value} (ok)" if @smart_debug
+            puts "#{fields[0]} #{smart_att[:name]}: #{att_value} (ok)" if @smart_debug # rubocop:disable Style/IfInsideElse
           end
         end
       end

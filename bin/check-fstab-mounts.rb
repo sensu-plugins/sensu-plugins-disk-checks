@@ -63,7 +63,7 @@ class CheckFstabMounts < Sensu::Plugin::Check::CLI
       if fields[2] != 'swap'
         @missing_mounts << fields[1] if @mtab.select { |m| m.split(/\s+/)[1] == fields[1] }.empty?
       else
-        @missing_mounts << fields[1] if @swap_mounts.select { |m| m.split(/\s+/)[0] == Pathname.new(fields[0]).realpath.to_s }.empty?
+        @missing_mounts << fields[1] if @swap_mounts.select { |m| m.split(/\s+/)[0] == Pathname.new(fields[0]).realpath.to_s }.empty? # rubocop:disable Style/IfInsideElse
       end
     end
   end

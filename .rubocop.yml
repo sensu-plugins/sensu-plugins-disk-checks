@@ -3,7 +3,7 @@ MethodLength:
   Max: 200
 
 LineLength:
-  Max: 160
+  Max: 175
 
 AbcSize:
   Max: 175
@@ -30,4 +30,7 @@ Style/Documentation:
   Enabled: false
 
 Style/Next:
+  Enabled: false
+
+Style/ZeroLengthPredicate:
   Enabled: false

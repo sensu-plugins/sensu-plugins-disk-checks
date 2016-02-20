@@ -99,21 +99,21 @@ class DiskUsageMetrics < Sensu::Plugin::Metric::CLI::Graphite
     `df -PB#{config[:block_size]} #{config[:local] ? '-l' : ''}`.split("\n").drop(1).each do |line|
       _, _, used, avail, used_p, mnt = line.split
 
-      unless %r{/sys[/|$]|/dev[/|$]|/run[/|$]}.match(mnt)
+      unless %r{/sys[/|$]|/dev[/|$]|/run[/|$]} =~ mnt
         next if config[:ignore_mnt] && config[:ignore_mnt].find { |x| mnt.match(x) }
         next if config[:include_mnt] && !config[:include_mnt].find { |x| mnt.match(x) }
-        if config[:flatten]
-          mnt = mnt.eql?('/') ? 'root' : mnt.gsub(/^\//, '')
-        else
-          # If mnt is only / replace that with root if its /tmp/foo
-          # replace first occurance of / with root.
-          mnt = mnt.length == 1 ? 'root' : mnt.gsub(/^\//, 'root.')
-        end
+        mnt = if config[:flatten]
+                mnt.eql?('/') ? 'root' : mnt.gsub(/^\//, '')
+              else
+                # If mnt is only / replace that with root if its /tmp/foo
+                # replace first occurance of / with root.
+                mnt.length == 1 ? 'root' : mnt.gsub(/^\//, 'root.')
+              end
         # Fix subsequent slashes
         mnt = mnt.gsub '/', delim
         output [config[:scheme], mnt, 'used'].join('.'), used.gsub(config[:block_size], '')
         output [config[:scheme], mnt, 'avail'].join('.'), avail.gsub(config[:block_size], '')
-        output [config[:scheme], mnt, 'used_percentage'].join('.'), used_p.gsub('%', '')
+        output [config[:scheme], mnt, 'used_percentage'].join('.'), used_p.delete('%')
       end
     end
     ok
