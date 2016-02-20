@@ -3,7 +3,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
-## Unreleased
+## [Unreleased]
 
 ## [1.1.3] - 2016-01-15
 ### Added
@@ -93,6 +93,19 @@ https://mathias-kettner.de/checkmk_filesystems.html
 ### Fixed
 - deployment issue
 
-## [0.0.1] - 2015-04-21
+## 0.0.1 - 2015-04-21
 ### Added
 - initial release
+
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/1.1.3...HEAD
+[1.1.3]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/1.1.2...1.1.3
+[1.1.2]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/1.1.1...1.1.2
+[1.1.1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/1.1.1...1.1.1
+[1.1.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/1.0.3...1.1.0
+[1.0.3]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/1.0.2...1.0.3
+[1.0.2]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/1.0.1...1.0.2
+[1.0.1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/1.0.0...1.0.1
+[1.0.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/0.0.4...1.0.0
+[0.0.4]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/0.0.3...0.0.4
+[0.0.3]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/0.0.2...0.0.3
+[0.0.2]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/0.0.1...0.0.2
