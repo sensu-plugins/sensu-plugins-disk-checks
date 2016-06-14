@@ -4,8 +4,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+
+## [2.0.0]
 ### Changed
 - Updated Rubocop to 0.40, applied auto-correct.
+- metrics-disk.rb: Now using sysfs instead of lsblk for translating device mapper numbers to names
+- check-disk-usage.rb: values =< 1024 will not be modified for display in output
 
 ### Removed
 - Remove Ruby 1.9.3 support; add Ruby 2.3.0 support
@@ -102,7 +106,8 @@ https://mathias-kettner.de/checkmk_filesystems.html
 ### Added
 - initial release
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/1.1.3...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.0.0...HEAD
+[2.0.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/1.1.3...2.0.0
 [1.1.3]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/1.1.2...1.1.3
 [1.1.2]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/1.1.1...1.1.2
 [1.1.1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/1.1.1...1.1.1
