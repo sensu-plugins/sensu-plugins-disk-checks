@@ -72,7 +72,7 @@ class DiskGraphite < Sensu::Plugin::Metric::CLI::Graphite
       stats = line.strip.split(/\s+/)
       _major, _minor, dev = stats.shift(3)
       if config[:convert]
-        dev = `lsblk -P -o NAME /dev/"#{dev}"| cut -d\\" -f2`.lines.first.chomp! if dev =~ /^dm-.*$/
+        dev = File.read('/sys/block/' + dev + '/dm/name').chomp! if dev =~ /^dm-.*$/
       end
       next if stats == ['0'].cycle.take(stats.size)
 
