@@ -5,11 +5,11 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## [Unreleased]
 
-## [2.0.1]
+## [2.0.1] - 2016-06-15
 ### Fixed
 - metrics-disk-capacity.rb: fixed invalid string matching with =~ operator
 
-## [2.0.0]
+## [2.0.0] - 2016-06-14
 ### Changed
 - Updated Rubocop to 0.40, applied auto-correct.
 - metrics-disk.rb: Now using sysfs instead of lsblk for translating device mapper numbers to names
