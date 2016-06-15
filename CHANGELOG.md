@@ -4,10 +4,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+
+## [2.0.1] - 2016-06-15
 ### Fixed
 - metrics-disk-capacity.rb: fixed invalid string matching with =~ operator
 
-## [2.0.0]
+## [2.0.0] - 2016-06-14
 ### Changed
 - Updated Rubocop to 0.40, applied auto-correct.
 - metrics-disk.rb: Now using sysfs instead of lsblk for translating device mapper numbers to names
@@ -108,7 +110,8 @@ https://mathias-kettner.de/checkmk_filesystems.html
 ### Added
 - initial release
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.0.0...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.0.1...HEAD
+[2.0.1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/1.1.3...2.0.0
 [1.1.3]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/1.1.2...1.1.3
 [1.1.2]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/1.1.1...1.1.2
