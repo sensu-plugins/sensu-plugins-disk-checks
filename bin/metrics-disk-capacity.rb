@@ -63,7 +63,7 @@ class DiskCapacity < Sensu::Plugin::Metric::CLI::Graphite
         fs, _type, _blocks, used, avail, capacity, _mnt = line.split
 
         timestamp = Time.now.to_i
-        if fs =~ '/dev'
+        if fs =~ /\/dev/
           fs = fs.gsub('/dev/', '')
           metrics = {
             disk: {
@@ -89,7 +89,7 @@ class DiskCapacity < Sensu::Plugin::Metric::CLI::Graphite
         fs, _inodes, used, avail, capacity, _mnt = line.split
 
         timestamp = Time.now.to_i
-        if fs =~ '/dev'
+        if fs =~ /\/dev/
           fs = fs.gsub('/dev/', '')
           metrics = {
             disk: {
