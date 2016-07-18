@@ -44,11 +44,12 @@ require 'sensu-plugin/check/cli'
 class Disk
   # Setup variables
   #
-  def initialize(name)
+  def initialize(name, sparam)
     @device_path = "/dev/#{name}"
     @smart_available = false
     @smart_enabled = false
     @smart_healty = nil
+    @smart_param = sparam
     check_smart_capability!
     check_health! if smart_capable?
   end
@@ -64,7 +65,7 @@ class Disk
   # Check for SMART cspability
   #
   def check_smart_capability!
-    output = `sudo smartctl -i #{@device_path}`
+    output = `sudo smartctl -i #{@device_path} #{@smart_param}`
     @smart_available = !output.scan(/SMART support is: Available/).empty?
     @smart_enabled = !output.scan(/SMART support is: Enabled/).empty?
     @capability_output = output
@@ -73,7 +74,7 @@ class Disk
   # Check the SMART health
   #
   def check_health!
-    output = `sudo smartctl -H #{@device_path}`
+    output = `sudo smartctl -H #{@device_path} #{@smart_param}`
     @smart_healthy = !output.scan(/PASSED/).empty?
     @health_output = output
   end
@@ -100,9 +101,16 @@ class CheckSMART < Sensu::Plugin::Check::CLI
   # Generate a list of all block devices
   #
   def scan_disks!
-    `lsblk -nro NAME,TYPE`.each_line do |line|
-      name, type = line.split
-      @devices << Disk.new(name) if type == 'disk'
+    @number = 0
+    `lsblk -nro NAME,TYPE,MODEL`.each_line do |line|
+      name, type, model = line.split
+
+      if model == '9650SE-8LP' and type == 'disk'
+        @devices << Disk.new("twa0", "-d 3ware,#@number")
+        @number += 1
+      else
+        @devices << Disk.new(name, "") if type == 'disk'
+      end
     end
   end
 
