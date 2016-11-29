@@ -39,53 +39,53 @@ include Sys
 #
 class CheckDiskPartitionUsage < Sensu::Plugin::Check::CLI
   option :mounts,
-		     short: '-m MOUNTS',
-         long: '--mounts MOUNTS',
-         description: 'comma-separated mounts with their thresholds. e.g: "/boot:w80:c90"',
-         proc: proc { |a| a.split(',') },
-         default: '/boot:w80:c90'.split(',')
+    short: '-m MOUNTS',
+    long: '--mounts MOUNTS',
+    description: 'comma-separated mounts with their thresholds. e.g: "/boot:w80:c90"',
+    proc: proc { |a| a.split(',') },
+    default: '/boot:w80:c90'.split(',')
 
   option :fstype,
-         short: '-t TYPE[,TYPE]',
-		     description: 'Only check fs type(s)',
-		     proc: proc { |a| a.split(',') }
+    short: '-t TYPE[,TYPE]',
+    description: 'Only check fs type(s)',
+    proc: proc { |a| a.split(',') }
 
   option :ignoretype,
-		     short: '-x TYPE[,TYPE]',
-		     description: 'Ignore fs type(s)',
-		     proc: proc { |a| a.split(',') }
+    short: '-x TYPE[,TYPE]',
+    description: 'Ignore fs type(s)',
+    proc: proc { |a| a.split(',') }
 
   option :ignoremnt,
-		     short: '-i MNT[,MNT]',
-		     description: 'Ignore mount point(s)',
-		     proc: proc { |a| a.split(',') }
+    short: '-i MNT[,MNT]',
+    description: 'Ignore mount point(s)',
+    proc: proc { |a| a.split(',') }
 
   option :bwarn,
-         short: '-w PERCENT',
-		     description: 'Warn if PERCENT or more of disk full',
-		     proc: proc(&:to_i),
-		     default: 85
+    short: '-w PERCENT',
+    description: 'Warn if PERCENT or more of disk full',
+    proc: proc(&:to_i),
+    default: 85
 
   option :bcrit,
-		     short: '-c PERCENT',
-		     description: 'Critical if PERCENT or more of disk full',
-		     proc: proc(&:to_i),
-		     default: 95
+    short: '-c PERCENT',
+    description: 'Critical if PERCENT or more of disk full',
+    proc: proc(&:to_i),
+    default: 95
 
   option :iwarn,
-		     short: '-W PERCENT',
-		     description: 'Warn if PERCENT or more of inodes used',
-		     proc: proc(&:to_i),
-		     default: 85
+    short: '-W PERCENT',
+    description: 'Warn if PERCENT or more of inodes used',
+    proc: proc(&:to_i),
+    default: 85
 
   option :icrit,
-		     short: '-K PERCENT',
-		     description: 'Critical if PERCENT or more of inodes used',
-		     proc: proc(&:to_i),
-		     default: 95
+    short: '-K PERCENT',
+    description: 'Critical if PERCENT or more of inodes used',
+    proc: proc(&:to_i),
+    default: 95
 
-	# Setup variables
-	#
+  # Setup variables
+  #
   def initialize
     super
     @crit_fs = []
@@ -102,7 +102,7 @@ class CheckDiskPartitionUsage < Sensu::Plugin::Check::CLI
 
   # Get FS Mounts
   #
-  def get_fs_mounts
+  def fetch_fs_mounts
     Filesystem.mounts.each do |line|
       begin
         next if config[:fstype] && !config[:fstype].include?(line.mount_type)
@@ -126,7 +126,7 @@ class CheckDiskPartitionUsage < Sensu::Plugin::Check::CLI
 
   # Get FS Info of a given Mount point
   #
-  def get_fsinfo(mount)
+  def fetch_fsinfo(mount)
     fsinfo = ''
     begin
       fsinfo = Sys::Filesystem.stat(mount.to_s)
@@ -178,10 +178,10 @@ class CheckDiskPartitionUsage < Sensu::Plugin::Check::CLI
   #
   def run
     # Forge percent bytes and inodes
-    get_fs_mounts.each do |mount|
+    fetch_fs_mounts.each do |mount|
       next if config[:ignoremnt] && config[:ignoremnt].include?(mount.to_s)
-      @mounts_av[mount] = percent_bytes(get_fsinfo(mount))
-      @mounts_iv[mount] = percent_inodes(get_fsinfo(mount))
+      @mounts_av[mount] = percent_bytes(fetch_fsinfo(mount))
+      @mounts_iv[mount] = percent_inodes(fetch_fsinfo(mount))
     end
     test_mounts(@mounts_av, false)
     test_mounts(@mounts_iv, true)
