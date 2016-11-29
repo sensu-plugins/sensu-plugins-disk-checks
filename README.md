@@ -52,8 +52,13 @@ Check the SMART status of hardrives and alert based upon a given set of threshol
 
 Check the health of a disk using `smartctl`
 
+**check-partition-usage**
+
+Check a mount usage by assigning custom thresholds per mount
+
 ## Files
  * bin/check-disk-usage.rb
+ * bin/check-partition-usage.rb
  * bin/check-fstab-mounts.rb
  * bin/check-smart-status.rb
  * bin/check-smart.rb
