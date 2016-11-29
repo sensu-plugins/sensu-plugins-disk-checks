@@ -38,59 +38,67 @@ include Sys
 # Check Disk Partition Usage
 #
 class CheckDiskPartitionUsage < Sensu::Plugin::Check::CLI
-  option(:mounts,
-         short: '-m MOUNTS',
-         long: '--mounts MOUNTS',
-         description: 'comma-separated mounts with their thresholds. e.g: "/boot:w80:c90"',
-         proc: proc { |a| a.split(',') },
-         default: '/boot:w80:c90'.split(',')
-        )
+  option(
+    :mounts,
+    short: '-m MOUNTS',
+    long: '--mounts MOUNTS',
+    description: 'comma-separated mounts with their thresholds. e.g: "/boot:w80:c90"',
+    proc: proc { |a| a.split(',') },
+    default: '/boot:w80:c90'.split(',')
+  )
 
-  option(:fstype,
-         short: '-t TYPE[,TYPE]',
-         description: 'Only check fs type(s)',
-         proc: proc { |a| a.split(',') }
-        )
+  option(
+    :fstype,
+    short: '-t TYPE[,TYPE]',
+    description: 'Only check fs type(s)',
+    proc: proc { |a| a.split(',') }
+  )
 
-  option(:ignoretype,
-         short: '-x TYPE[,TYPE]',
-         description: 'Ignore fs type(s)',
-         proc: proc { |a| a.split(',') }
-        )
+  option(
+    :ignoretype,
+    short: '-x TYPE[,TYPE]',
+    description: 'Ignore fs type(s)',
+    proc: proc { |a| a.split(',') }
+  )
 
-  option(:ignoremnt,
-         short: '-i MNT[,MNT]',
-         description: 'Ignore mount point(s)',
-         proc: proc { |a| a.split(',') }
-        )
+  option(
+    :ignoremnt,
+    short: '-i MNT[,MNT]',
+    description: 'Ignore mount point(s)',
+    proc: proc { |a| a.split(',') }
+  )
 
-  option(:bwarn,
-         short: '-w PERCENT',
-         description: 'Warn if PERCENT or more of disk full',
-         proc: proc(&:to_i),
-         default: 85
-        )
+  option(
+    :bwarn,
+    short: '-w PERCENT',
+    description: 'Warn if PERCENT or more of disk full',
+    proc: proc(&:to_i),
+    default: 85
+  )
 
-  option(:bcrit,
-         short: '-c PERCENT',
-         description: 'Critical if PERCENT or more of disk full',
-         proc: proc(&:to_i),
-         default: 95
-        )
+  option(
+    :bcrit,
+    short: '-c PERCENT',
+    description: 'Critical if PERCENT or more of disk full',
+    proc: proc(&:to_i),
+    default: 95
+  )
 
-  option(:iwarn,
-         short: '-W PERCENT',
-         description: 'Warn if PERCENT or more of inodes used',
-         proc: proc(&:to_i),
-         default: 85
-        )
+  option(
+    :iwarn,
+    short: '-W PERCENT',
+    description: 'Warn if PERCENT or more of inodes used',
+    proc: proc(&:to_i),
+    default: 85
+  )
 
-  option(:icrit,
-         short: '-K PERCENT',
-         description: 'Critical if PERCENT or more of inodes used',
-         proc: proc(&:to_i),
-         default: 95
-        )
+  option(
+    :icrit,
+    short: '-K PERCENT',
+    description: 'Critical if PERCENT or more of inodes used',
+    proc: proc(&:to_i),
+    default: 95
+  )
 
   # Setup variables
   #
