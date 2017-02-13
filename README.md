@@ -40,7 +40,7 @@ Acquire disk capacity metrics from `df` and convert them to a form usable by gra
 
 Read */proc/iostats* for disk metrics and put them in a form usable by Graphite.  See [iostats.txt](http://www.kernel.org/doc/Documentation/iostats.txt) for more details.
 
-**metrics-disk-uasage**
+**metrics-disk-usage**
 
 Based on disk-capacity-metrics.rb by bhenerey and nstielau. The difference here being how the key is defined in graphite and the size we emit to graphite(now using megabytes), inode info has also been dropped.
 
