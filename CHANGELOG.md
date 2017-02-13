@@ -6,6 +6,7 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 ## [Unreleased]
 ### Changed
 - check-disk-usage.rb: show the decimals for disk usage figures
+- Added check-partition-usage tu assign custom thresholds per mount
 
 ### Fixed
 - check-fstab-mounts.rb: support swap mounts defined using UUID or LABEL
