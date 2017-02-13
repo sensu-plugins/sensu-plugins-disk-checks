@@ -7,6 +7,9 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 ### Changed
 - check-disk-usage.rb: show the decimals for disk usage figures
 
+### Fixed
+- check-fstab-mounts.rb: support swap mounts defined using UUID or LABEL
+
 ## [2.0.1] - 2016-06-15
 ### Fixed
 - metrics-disk-capacity.rb: fixed invalid string matching with =~ operator
