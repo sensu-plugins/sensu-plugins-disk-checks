@@ -7,6 +7,7 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 ### Changed
 - check-disk-usage.rb: show the decimals for disk usage figures
 - check-disk-usage.rb: dont do utilization check of devfs filesystems
+- bump sys-filesystem to 1.1.7
 
 ### Fixed
 - check-fstab-mounts.rb: support swap mounts defined using UUID or LABEL
