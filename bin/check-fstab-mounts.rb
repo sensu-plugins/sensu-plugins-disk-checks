@@ -68,6 +68,12 @@ class CheckFstabMounts < Sensu::Plugin::Check::CLI
       end
     end
 
+    if d.start_with?('/dev/mapper')
+      if File.symlink?(d)
+        d = File.realpath(d, '/')
+      end
+    end
+
     d
   end
 
