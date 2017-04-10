@@ -10,6 +10,7 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ### Fixed
 - check-fstab-mounts.rb: support swap mounts defined using UUID or LABEL
+- check-fstab-mounts.rb: support swap mounts defined using LVM /dev/mapper/*
 
 ## [2.0.1] - 2016-06-15
 ### Fixed
