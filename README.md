@@ -52,11 +52,16 @@ Check the SMART status of hardrives and alert based upon a given set of threshol
 
 Check the health of a disk using `smartctl`
 
+**check-smart-tests**
+
+Check the status of SMART offline tests and optionally check if tests were executed in a specified interval
+
 ## Files
  * bin/check-disk-usage.rb
  * bin/check-fstab-mounts.rb
  * bin/check-smart-status.rb
  * bin/check-smart.rb
+ * bin/check-smart-tests.rb
  * bin/metrics-disk.rb
  * bin/metrics-disk-capacity.rb
  * bin/metrics-disk-usage.rb
