@@ -7,7 +7,7 @@
 #   test run
 #
 # OUTPUT:
-#   plain text 
+#   plain text
 #
 # PLATFORMS:
 #   Linux
@@ -49,7 +49,7 @@ class Device
   end
 
   def poweron_hours
-    %x(sudo #{@exec} -A #{@name}).split("\n").each do |line|
+    `sudo #{@exec} -A #{@name}`.split("\n").each do |line|
       columns = line.split
       if columns[1] == 'Power_On_Hours'
         return columns[9]
@@ -58,13 +58,13 @@ class Device
   end
 
   def selftest_results
-    results = Array.new
-    headers = ["num", "test_description", "status", "remaining", "lifetime", "lba_of_first_error"]
+    results = []
+    headers = %w[num test_description status remaining lifetime lba_of_first_error]
 
-    %x(sudo #{@exec} -l selftest #{@name}).split("\n").grep(/^#/).each do |test|
+    `sudo #{@exec} -l selftest #{@name}`.split("\n").grep(/^#/).each do |test|
       test = test.gsub!(/\s\s+/m, "\t").split("\t")
-      res = Hash.new
-      
+      res = {}
+
       headers.each_with_index do |v, k|
         res[v] = test[k]
       end
@@ -72,71 +72,73 @@ class Device
       results << res
     end
 
-    return results
+    results
   end
-
 end
 
 class CheckSMARTTests < Sensu::Plugin::Check::CLI
   option :executable,
-         :long => '--executable EXECUTABLE',
-         :short => '-e EXECUTABLE',
-         :default => '/usr/sbin/smartctl',
-         :description => 'Path to smartctl executable'
+         long:  '--executable EXECUTABLE',
+         short: '-e EXECUTABLE',
+         default: '/usr/sbin/smartctl',
+         description: 'Path to smartctl executable'
   option :devices,
-         :long => '--devices *DEVICES',
-         :short => '-d *DEVICES',
-         :default => 'all',
-         :description => 'Comma-separated list of devices to check, i.e. "/dev/sda,/dev/sdb"'
+         long: '--devices *DEVICES',
+         short: '-d *DEVICES',
+         default: 'all',
+         description: 'Comma-separated list of devices to check, i.e. "/dev/sda,/dev/sdb"'
   option :short_test_interval,
-         :long => '--short_test_interval INTERVAL',
-         :short => '-s INTERVAL',
-         :description => 'If more time then this value passed since last short test run, then warning will be raised'
+         long: '--short_test_interval INTERVAL',
+         short: '-s INTERVAL',
+         description: 'If more time then this value passed since last short test run, then warning will be raised'
   option :long_test_interval,
-         :long => '--long_test_interval INTERVAL',
-         :short => '-l INTERVAL',
-         :description => 'If more time then this value passed since last extedned test run, then warning will be raised'
+         long: '--long_test_interval INTERVAL',
+         short: '-l INTERVAL',
+         description: 'If more time then this value passed since last extedned test run, then warning will be raised'
 
   def initialize
     super
-    @devices = Array.new
-    @warnings = Array.new
-    @criticals = Array.new
+    @devices = []
+    @warnings = []
+    @criticals = []
     set_devices
   end
 
   def set_devices
     if config[:devices] == 'all'
-      %x(lsblk -plnd -o NAME).split.each do |name|
-        if not /\/dev\/loop.*/.match(name)
-          dev = Device.new(name, config[:executable]) 
-          @devices.push(dev) 
+      `lsblk -plnd -o NAME`.split.each do |name|
+        unless name =~ /\/dev\/loop.*/
+          dev = Device.new(name, config[:executable])
+          @devices.push(dev)
         end
       end
     else
-      config[:devices].split(",").each do |name|
-        dev = Device.new(name, config[:executable]) 
+      config[:devices].split(',').each do |name|
+        dev = Device.new(name, config[:executable])
         @devices.push(dev)
       end
     end
   end
 
   def check_tests(dev)
-
-    puts dev.str[0]["status"]
-    if dev.str[0]["status"] != "Completed without error"
-      @criticals << "#{dev.name}: last test failed - #{dev[0]["status"]}"
+    if dev.str.empty?
+      @warnings << "#{dev.name}: No self-tests have been logged."
+      return
     end
 
-    if !config[:short_test_interval].nil? 
+    if dev.str[0]['status'] != 'Completed without error'
+      @criticals << "#{dev.name}: Last test failed - #{dev[0]['status']}"
+    end
+
+    unless config[:short_test_interval].nil?
       dev.str.each_with_index do |t, i|
-        if t["test_description"] != "Short offline"
+        if t['test_description'] != 'Short offline'
           if i == dev.str.length - 1
             @warnings << "#{dev.name}: No short tests were run for this device in last #{dev.str.length} executions"
           end
           next
         else
-          if dev.pwh.to_i - t["lifetime"].to_i > config[:short_test_interval].to_i
+          if dev.pwh.to_i - t['lifetime'].to_i > config[:short_test_interval].to_i
             @warnings << "#{dev.name}: More than #{config[:short_test_interval]} hours passed since the last short test"
           end
           break
@@ -144,15 +146,15 @@ class CheckSMARTTests < Sensu::Plugin::Check::CLI
       end
     end
 
-    if !config[:long_test_interval].nil? 
+    unless config[:long_test_interval].nil?
       dev.str.each_with_index do |t, i|
-        if t["test_description"] != "Extended offline"
+        if t['test_description'] != 'Extended offline'
           if i == dev.str.length - 1
             @warnings << "#{dev.name}: No extended tests were run for this device in last #{dev.str.length} executions"
           end
           next
         else
-          if dev.pwh.to_i - t["lifetime"].to_i > config[:long_test_interval].to_i
+          if dev.pwh.to_i - t['lifetime'].to_i > config[:long_test_interval].to_i
             @warnings << "#{dev.name}: More than #{config[:long_test_interval]} hours passed since the last extended test"
           end
           break
@@ -166,12 +168,12 @@ class CheckSMARTTests < Sensu::Plugin::Check::CLI
       check_tests(device)
     end
 
-    if !@criticals.empty?
-      critical @criticals.join(" ")
+    if @criticals.empty?
+      critical @criticals.join(' ')
     elsif !@warnings.empty?
-      warning @warnings.join(" ")
+      warning @warnings.join(' ')
     else
-      ok "All devices are OK"
+      ok 'All devices are OK'
     end
   end
 end
