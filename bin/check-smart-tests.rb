@@ -59,7 +59,7 @@ class Device
 
   def selftest_results
     results = []
-    headers = %w[num test_description status remaining lifetime lba_of_first_error]
+    headers = %w(num test_description status remaining lifetime lba_of_first_error)
 
     `sudo #{@exec} -l selftest #{@name}`.split("\n").grep(/^#/).each do |test|
       test = test.gsub!(/\s\s+/m, "\t").split("\t")
