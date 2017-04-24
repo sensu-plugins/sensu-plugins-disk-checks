@@ -126,7 +126,7 @@ class CheckSMARTTests < Sensu::Plugin::Check::CLI
       return
     end
 
-    if dev.str[0]['status'] != 'Completed without error' || dev.str[0]['status'] != 'Self-test routine in progress'
+    unless dev.str[0]['status'] == 'Completed without error' || dev.str[0]['status'] =~ /Self-test routine in progress/
       @criticals << "#{dev.name}: Last test failed - #{dev.str[0]['status']}"
     end
 
