@@ -168,9 +168,9 @@ class CheckSMARTTests < Sensu::Plugin::Check::CLI
       check_tests(device)
     end
 
-    if !@criticals.empty?
+    if @criticals.any?
       critical @criticals.join(' ')
-    elsif !@warnings.empty?
+    elsif @warnings.any?
       warning @warnings.join(' ')
     else
       ok 'All devices are OK'
