@@ -7,6 +7,9 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 ### Added
 - travis testing on ruby 2.4.1 (@majormoses)
 
+### Fixed
+- fixed spelling of "Compatibility" in PR template (@majormoses)
+
 ## [2.2.0] - 2017-06-24
 ### Added
 - check-smart-tests.rb: a plugin to check S.M.A.R.T. self tests status (@sndl)
