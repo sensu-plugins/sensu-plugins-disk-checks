@@ -4,6 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+### Added
+- check-smart-tests.rb: a plugin to check S.M.A.R.T. self tests status
+
 ## [2.1.0] - 2017-05-04
 ### Changed
 - check-disk-usage.rb: show the decimals for disk usage figures
