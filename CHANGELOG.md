@@ -9,6 +9,7 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ### Fixed
 - fixed spelling of "Compatibility" in PR template (@majormoses)
+- check-smart.rb: deal with long keys in the info output
 
 ## [2.2.0] - 2017-06-24
 ### Added
