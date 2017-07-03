@@ -74,7 +74,7 @@ class Disk
   #
   def check_health!
     output = `sudo smartctl -H #{@device_path}`
-    @smart_healthy = !output.scan(/PASSED/).empty?
+    @smart_healthy = !output.scan(/PASSED|OK$/).empty?
     @health_output = output
   end
 end
