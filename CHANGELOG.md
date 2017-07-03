@@ -4,13 +4,15 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+
+## [2.3.0] - 2017-07-03
 ### Added
 - travis testing on ruby 2.4.1 (@majormoses)
 
 ### Fixed
 - fixed spelling of "Compatibility" in PR template (@majormoses)
-- check-smart.rb: deal with long keys in the info output
-- check-smart.rb: accept "OK" disk health status
+- check-smart.rb: deal with long keys in the info output (@robx)
+- check-smart.rb: accept "OK" disk health status (@robx)
 
 ## [2.2.0] - 2017-06-24
 ### Added
