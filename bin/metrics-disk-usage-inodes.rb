@@ -1,7 +1,7 @@
 #! /usr/bin/env ruby
 #  encoding: UTF-8
 #
-#   disk-usage-metrics
+#   disk-usage-metrics-inodes
 #
 # DESCRIPTION:
 #   This plugin uses df to collect disk capacity metrics
@@ -20,17 +20,10 @@
 # USAGE:
 #
 # NOTES:
-#   Based on disk-capacity-metrics.rb by bhenerey and nstielau
-#   The difference here being how the key is defined in graphite and the
-#   size we emit to graphite(now using megabytes). Also i dropped inode info.
-#   Using this as an example
-#   Filesystem                                 Size  Used Avail Use% Mounted on
-#   /dev/mapper/precise64-root                  79G  3.5G   72G   5% /
-#   /dev/sda1                                  228M   25M  192M  12% /boot
-#   /dev/sdb1                                   99G    2G   97G   2% /media/sda1
-#   The keys with this plugin will be
-#    disk_usage.root, disk_usage.root.boot, and disk_usage.root.media.sda1
-#    instead of disk.dev.mapper.precise64-root, disk.sda1, and disk.sda2
+#   Based on metrics-disk-usage.rb by mattyjones, tas50 and bovy89
+#   Basically executes the same code but with different `df` command`
+#
+#   Also added a metric "total" to get total amount of available inodes
 #
 #   Use --flatten option to reduce graphite "tree" by using underscores rather
 #   then dots for subdirs. Also eliminates 'root' on mounts other than '/'.
