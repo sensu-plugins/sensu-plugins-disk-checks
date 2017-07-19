@@ -5,6 +5,9 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## [Unreleased]
 
+### Added
+- metrics-disk-usage-inodes.rb: metric collection for inode usage per mountpoint
+
 ## [2.3.0] - 2017-07-03
 ### Added
 - travis testing on ruby 2.4.1 (@majormoses)
