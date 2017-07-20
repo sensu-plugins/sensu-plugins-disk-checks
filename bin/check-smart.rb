@@ -63,13 +63,13 @@ class Disk
   def smart_capable?
     @smart_available && @smart_enabled
   end
-  
+
   # Is the device SMART capable and enabled
   #
   def device_path
-   if @override_path == nil
+    if @override_path.nil?
       @device_path
-	else
+    else
       @override_path
     end
   end
@@ -108,7 +108,7 @@ class CheckSMART < Sensu::Plugin::Check::CLI
          description: 'smartctl binary to use, in case you hide yours',
          required: false,
          default: 'smartctl'
-		 
+	 
   option :json,
          short: '-j path/to/smart.json',
          long: '--json path/to/smart.json',
@@ -121,33 +121,32 @@ class CheckSMART < Sensu::Plugin::Check::CLI
   def initialize
     super
     @devices = []
-	
+
     # Load in the device configuration
     @hardware = JSON.parse(IO.read(config[:json]), symbolize_names: true)[:hardware][:devices]
-	
+
     scan_disks!
   end
 
   # Generate a list of all block devices
   #
   def scan_disks!
-  
     `lsblk -nro NAME,TYPE`.each_line do |line|
       name, type = line.split
       
       if type == 'disk'
         jconfig = @hardware.find { |h1| h1[:path] == name }
-		
-        override = jconfig != nil ? jconfig[:override] : nil
-		
-        device = Disk.new(name, override, config[:binary] )
+	
+        override = !jconfig.nil? jconfig[:override] : nil
+	
+        device = Disk.new(name, override, config[:binary])
 		
         output = `sudo #{config[:binary]} -i #{device.device_path}`
 	    
         # Check if we can use this device or not
         available = !output.scan(/SMART support is:\s+Available/).empty?
         enabled = !output.scan(/SMART support is:\s+Enabled/).empty?
-	  
+
         @devices << device if available && enabled
       end
     end
