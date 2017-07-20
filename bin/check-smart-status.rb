@@ -81,11 +81,8 @@ class Disk
   end
 
   def smart_ignore?(num)
-    if @att_ignore.nil?
-      return false
-    else
-      @att_ignore.include? num
-    end
+    return unless !@att_ignore.nil?
+    @att_ignore.include? num
   end
 
   public :device_path, :smart_ignore?
@@ -274,7 +271,7 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
     # Return parameter value if it's defined
     if config[:devices] != 'all'
       config[:devices].split(',').each do |dev|
-        devices << Disk.new("#{dev}","",nil)
+        devices << Disk.new(dev.to_s, '', nil)
       end
       return devices
     end
@@ -283,23 +280,23 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
       name, type = line.split
 
       if type == 'disk'
-      jconfig = @hardware.find { |h1| h1[:path] == name }
+        jconfig = @hardware.find { |h1| h1[:path] == name }
 
-      if jconfig.nil?
-        override = nil
-        ignore = nil
-      else
-        override = jconfig[:override] 
-        ignore = jconfig[:ignore]
-      end
+        if jconfig.nil?
+          override = nil
+          ignore = nil
+        else
+          override = jconfig[:override]
+          ignore = jconfig[:ignore]
+        end
 
-      device = Disk.new(name, override, ignore)
+        device = Disk.new(name, override, ignore)
 
-      output = `sudo #{config[:binary]} -i #{device.device_path}`
+        output = `sudo #{config[:binary]} -i #{device.device_path}`
 
-      # Check if we can use this device or not
-      available = !output.scan(/SMART support is:\+sAvailable/).empty?
-      enabled = !output.scan(/SMART support is:\+sEnabled/).empty?
+        # Check if we can use this device or not
+        available = !output.scan(/SMART support is:\+sAvailable/).empty?
+        enabled = !output.scan(/SMART support is:\+sEnabled/).empty?
         devices << device if available && enabled
       end
     end
