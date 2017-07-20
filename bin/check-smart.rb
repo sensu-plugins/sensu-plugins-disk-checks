@@ -137,7 +137,7 @@ class CheckSMART < Sensu::Plugin::Check::CLI
       if type == 'disk'
         jconfig = @hardware.find { |h1| h1[:path] == name }
 	
-        override = !jconfig.nil? jconfig[:override] : nil
+        override = !jconfig.nil? ? jconfig[:override] : nil
 	
         device = Disk.new(name, override, config[:binary])
 		
