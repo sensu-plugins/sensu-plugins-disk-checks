@@ -73,22 +73,22 @@ class Disk
   # Is the device SMART capable and enabled
   #
   def device_path
-   if @override_path == nil
+    if @override_path.nil?
       @device_path
-	else
+    else
       @override_path
     end
   end
   
   def smart_ignore?(num)
-    if @att_ignore == nil
-	  return false
-	else
+    if @att_ignore.nil?
+      return false
+	  else
       @att_ignore.include? num
-	end
+    end
   end
-  
-   public :device_path, :smart_ignore?
+
+  public :device_path, :smart_ignore?
 end
 
 #
@@ -159,9 +159,9 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
   def run
     @smart_attributes = JSON.parse(IO.read(config[:json]), symbolize_names: true)[:smart][:attributes]
     @smart_debug = config[:debug] == 'on'
-	
-	# Load in the device configuration
-	@hardware = JSON.parse(IO.read(config[:json]), symbolize_names: true)[:hardware][:devices]
+
+    # Load in the device configuration
+    @hardware = JSON.parse(IO.read(config[:json]), symbolize_names: true)[:hardware][:devices]
 
     # Set default threshold
     default_threshold = config[:defaults].split(',')
@@ -193,7 +193,7 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
     att_check_list = find_attributes
 
     # Devices to check
-    devices = config[:debug_file].nil? ? find_devices : [ Disk.new('sda',nil,nil) ]
+    devices = config[:debug_file].nil? ? find_devices : [Disk.new('sda', nil, nil)]
 
     # Overall health and attributes parameter
     parameters = '-H -A'
@@ -225,7 +225,7 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
       # #YELLOW
       output[dev].split("\n").each do |line|
         fields = line.split
-        if fields.size == 10 && fields[0].to_i != 0 && att_check_list.include?(fields[0].to_i) && ( dev.smart_ignore?(fields[0].to_i) == false )
+        if fields.size == 10 && fields[0].to_i != 0 && att_check_list.include?(fields[0].to_i) && (dev.smart_ignore?(fields[0].to_i) == false)
           smart_att = @smart_attributes.find { |att| att[:id] == fields[0].to_i }
           att_value = fields[9].to_i
           att_value = send(smart_att[:read], att_value) unless smart_att[:read].nil?
@@ -270,46 +270,39 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
   def find_devices
     # Search for devices without number
     devices = []
-	
+
     # Return parameter value if it's defined
-	if config[:devices] != 'all'
-	  config[:devices].split(',').each do |dev|
-	    devices << Disk.new("#{dev}","",nil)
-	  end
-	  return devices
-	end
-
-	`lsblk -nro NAME,TYPE`.each_line do |line|
-      name, type = line.split
-      
-	  if type == 'disk'
-		jconfig = @hardware.find { |h1| h1[:path] == name }
-		
-		if jconfig == nil
-		  override = nil
-		  ignore = nil
-		else
-		  override = jconfig[:override] 
-		  ignore = jconfig[:ignore]
-
-		end
-		
-		device = Disk.new(name, override, ignore )
-		
-		output = `sudo #{config[:binary]} -i #{device.device_path}`
-	    
-		# Check if we can use this device or not
-		available = !output.scan(/SMART support is: Available/).empty?
-        enabled = !output.scan(/SMART support is: Enabled/).empty?
-	  
-	    #if available && enabled
-		#  print("Adding #{name} path: #{device.device_path}\n")
-	    devices << device if available && enabled
-		#else
-		#  print("Skipping #{name} path: #{device.device_path}\n")
-		#end
+    if config[:devices] != 'all'
+	    config[:devices].split(',').each do |dev|
+        devices << Disk.new("#{dev}","",nil)
       end
-	end
+      return devices
+    end
+
+	  `lsblk -nro NAME,TYPE`.each_line do |line|
+      name, type = line.split
+
+      if type == 'disk'
+      jconfig = @hardware.find { |h1| h1[:path] == name }
+
+		  if jconfig.nil?
+        override = nil
+		    ignore = nil
+		  else
+        override = jconfig[:override] 
+        ignore = jconfig[:ignore]
+		  end
+
+		  device = Disk.new(name,override,ignore)
+
+		  output = `sudo #{config[:binary]} -i #{device.device_path}`
+
+		  # Check if we can use this device or not
+		  available = !output.scan(/SMART support is:\+sAvailable/).empty?
+      enabled = !output.scan(/SMART support is:\+sEnabled/).empty?
+	    devices << device if available && enabled
+      end
+	  end
 
     devices
   end
