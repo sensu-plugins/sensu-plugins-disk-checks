@@ -51,6 +51,32 @@ class CheckFstabMounts < Sensu::Plugin::Check::CLI
     @missing_mounts = []
   end
 
+  def resolve_device(d)
+    if d.start_with?('UUID=')
+      uuid = d.split('=')[1]
+      path = File.join('/', 'dev', 'disk', 'by-uuid', uuid)
+      if File.exist?(path) && File.symlink?(path)
+        return File.realpath(path)
+      end
+    end
+
+    if d.start_with?('LABEL=')
+      label = d.split('=')[1]
+      path  = File.join('/', 'dev', 'disk', 'by-label', label)
+      if File.exist?(path) && File.symlink?(path)
+        return File.realpath(path)
+      end
+    end
+
+    if d.start_with?('/dev/mapper')
+      if File.symlink?(d)
+        d = File.realpath(d, '/')
+      end
+    end
+
+    d
+  end
+
   # Check by mount destination (col 2 in fstab and proc/mounts)
   #
   def check_mounts
@@ -60,10 +86,11 @@ class CheckFstabMounts < Sensu::Plugin::Check::CLI
       fields = line.split(/\s+/)
       next if fields[1] == 'none' || (fields[3].include? 'noauto')
       next if config[:fstypes] && !config[:fstypes].include?(fields[2])
+
       if fields[2] != 'swap'
         @missing_mounts << fields[1] if @mtab.select { |m| m.split(/\s+/)[1] == fields[1] }.empty?
       else
-        @missing_mounts << fields[1] if @swap_mounts.select { |m| m.split(/\s+/)[0] == Pathname.new(fields[0]).realpath.to_s }.empty? # rubocop:disable Style/IfInsideElse
+        @missing_mounts << fields[1] if @swap_mounts.select { |m| m.split(/\s+/)[0] == resolve_device(fields[0]) }.empty? # rubocop:disable Style/IfInsideElse
       end
     end
   end

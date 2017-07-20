@@ -50,8 +50,8 @@ class Disk
     @smart_available = false
     @smart_enabled = false
     @smart_healty = nil
-	@smart_binary = binary
-	@override_path = override
+    @smart_binary = binary
+    @override_path = override
     check_smart_capability!
     check_health! if smart_capable?
   end
@@ -77,17 +77,17 @@ class Disk
   # Check for SMART cspability
   #
   def check_smart_capability!
-    output = `sudo #{@smart_binary} -i #{device_path}`
-    @smart_available = !output.scan(/SMART support is: Available/).empty?
-    @smart_enabled = !output.scan(/SMART support is: Enabled/).empty?
+    output = `sudo #{@smart_binary} -i #{@device_path}`
+    @smart_available = !output.scan(/SMART support is:\s+Available/).empty?
+    @smart_enabled = !output.scan(/SMART support is:\s+Enabled/).empty?
     @capability_output = output
   end
 
   # Check the SMART health
   #
   def check_health!
-    output = `sudo #{@smart_binary} -H #{device_path}`
-    @smart_healthy = !output.scan(/PASSED/).empty?
+    output = `sudo #{@smart_binary} -H #{@device_path}`
+    @smart_healthy = !output.scan(/PASSED|OK$/).empty?
     @health_output = output
   end
 end
@@ -122,7 +122,7 @@ class CheckSMART < Sensu::Plugin::Check::CLI
     super
     @devices = []
 	
-	 # Load in the device configuration
+    # Load in the device configuration
     @hardware = JSON.parse(IO.read(config[:json]), symbolize_names: true)[:hardware][:devices]
 	
     scan_disks!
@@ -135,33 +135,27 @@ class CheckSMART < Sensu::Plugin::Check::CLI
     `lsblk -nro NAME,TYPE`.each_line do |line|
       name, type = line.split
       
-	  if type == 'disk'
-		jconfig = @hardware.find { |h1| h1[:path] == name }
+      if type == 'disk'
+        jconfig = @hardware.find { |h1| h1[:path] == name }
 		
-		override = jconfig != nil ? jconfig[:override] : nil
+        override = jconfig != nil ? jconfig[:override] : nil
 		
-		device = Disk.new(name, override, config[:binary] )
+        device = Disk.new(name, override, config[:binary] )
 		
-		output = `sudo #{config[:binary]} -i #{device.device_path}`
+        output = `sudo #{config[:binary]} -i #{device.device_path}`
 	    
-		# Check if we can use this device or not
-		available = !output.scan(/SMART support is: Available/).empty?
-        enabled = !output.scan(/SMART support is: Enabled/).empty?
+        # Check if we can use this device or not
+        available = !output.scan(/SMART support is:\s+Available/).empty?
+        enabled = !output.scan(/SMART support is:\s+Enabled/).empty?
 	  
-	    #if available && enabled
-		#  print("Adding #{name} path: #{device.device_path}\n")
-	    @devices << device if available && enabled
-		#else
-		#  print("Skipping #{name} path: #{device.device_path}\n")
-		#end
+        @devices << device if available && enabled
       end
-	end
+    end
   end
   
   # Main function
   #
   def run
-  
     unknown 'No SMART capable devices found' unless @devices.length > 0
 
     unhealthy_disks = @devices.select { |disk| disk.smart_capable? && !disk.healthy? }

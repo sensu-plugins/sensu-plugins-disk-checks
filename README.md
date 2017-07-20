@@ -40,7 +40,7 @@ Acquire disk capacity metrics from `df` and convert them to a form usable by gra
 
 Read */proc/iostats* for disk metrics and put them in a form usable by Graphite.  See [iostats.txt](http://www.kernel.org/doc/Documentation/iostats.txt) for more details.
 
-**metrics-disk-uasage**
+**metrics-disk-usage**
 
 Based on disk-capacity-metrics.rb by bhenerey and nstielau. The difference here being how the key is defined in graphite and the size we emit to graphite(now using megabytes), inode info has also been dropped.
 
@@ -52,11 +52,16 @@ Check the SMART status of hardrives and alert based upon a given set of threshol
 
 Check the health of a disk using `smartctl`
 
+**check-smart-tests**
+
+Check the status of SMART offline tests and optionally check if tests were executed in a specified interval
+
 ## Files
  * bin/check-disk-usage.rb
  * bin/check-fstab-mounts.rb
  * bin/check-smart-status.rb
  * bin/check-smart.rb
+ * bin/check-smart-tests.rb
  * bin/metrics-disk.rb
  * bin/metrics-disk-capacity.rb
  * bin/metrics-disk-usage.rb

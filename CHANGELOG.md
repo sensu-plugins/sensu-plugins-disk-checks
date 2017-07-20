@@ -4,10 +4,31 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
-### Changed
-- check-disk-usage.rb: show the decimals for disk usage figures
 - check-smart.rb: Add path overrides via smart.json
 - check-smart-status.rb: Add path overrides via smart.json
+
+## [2.3.0] - 2017-07-03
+### Added
+- travis testing on ruby 2.4.1 (@majormoses)
+
+### Fixed
+- fixed spelling of "Compatibility" in PR template (@majormoses)
+- check-smart.rb: deal with long keys in the info output (@robx)
+- check-smart.rb: accept "OK" disk health status (@robx)
+
+## [2.2.0] - 2017-06-24
+### Added
+- check-smart-tests.rb: a plugin to check S.M.A.R.T. self tests status (@sndl)
+
+## [2.1.0] - 2017-05-04
+### Changed
+- check-disk-usage.rb: show the decimals for disk usage figures
+- check-disk-usage.rb: dont do utilization check of devfs filesystems
+- bump sys-filesystem to 1.1.7
+
+### Fixed
+- check-fstab-mounts.rb: support swap mounts defined using UUID or LABEL
+- check-fstab-mounts.rb: support swap mounts defined using LVM /dev/mapper/*
 
 ## [2.0.1] - 2016-06-15
 ### Fixed
@@ -114,7 +135,9 @@ https://mathias-kettner.de/checkmk_filesystems.html
 ### Added
 - initial release
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.0.1...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.2.0...HEAD
+[2.2.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.1.0...2.2.0
+[2.1.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.0.1...2.1.0
 [2.0.1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/1.1.3...2.0.0
 [1.1.3]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/1.1.2...1.1.3
