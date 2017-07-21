@@ -1,11 +1,13 @@
-#Change Log
+# Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
-- check-smart.rb: Add path overrides via smart.json
-- check-smart-status.rb: Add path overrides via smart.json
+
+## [2.4.0] - 2017-07-20
+- check-smart.rb: Add path overrides via smart.json (@ArakniD)
+- check-smart-status.rb: Add path overrides via smart.json (@ArakniD)
 
 ## [2.3.0] - 2017-07-03
 ### Added
@@ -135,7 +137,9 @@ https://mathias-kettner.de/checkmk_filesystems.html
 ### Added
 - initial release
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.2.0...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.4.0...HEAD
+[2.4.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.3.0...2.4.0
+[2.3.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.2.0...2.3.0
 [2.2.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.1.0...2.2.0
 [2.1.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.0.1...2.1.0
 [2.0.1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.0.0...2.0.1
