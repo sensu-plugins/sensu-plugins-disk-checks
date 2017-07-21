@@ -4,6 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+- check-smart.rb: Add path overrides via smart.json
+- check-smart-status.rb: Add path overrides via smart.json
 
 ## [2.3.0] - 2017-07-03
 ### Added

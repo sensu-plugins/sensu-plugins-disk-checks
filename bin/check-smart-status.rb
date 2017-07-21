@@ -61,6 +61,33 @@
 require 'sensu-plugin/check/cli'
 require 'json'
 
+class Disk
+  # Setup variables
+  #
+  def initialize(name, override, ignore)
+    @device_path = "/dev/#{name}"
+    @override_path = override
+    @att_ignore = ignore
+  end
+
+  # Is the device SMART capable and enabled
+  #
+  def device_path
+    if @override_path.nil?
+      @device_path
+    else
+      @override_path
+    end
+  end
+
+  def smart_ignore?(num)
+    return if @att_ignore.nil?
+    @att_ignore.include? num
+  end
+
+  public :device_path, :smart_ignore?
+end
+
 #
 # Smart Check Status
 #
@@ -130,6 +157,9 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
     @smart_attributes = JSON.parse(IO.read(config[:json]), symbolize_names: true)[:smart][:attributes]
     @smart_debug = config[:debug] == 'on'
 
+    # Load in the device configuration
+    @hardware = JSON.parse(IO.read(config[:json]), symbolize_names: true)[:hardware][:devices]
+
     # Set default threshold
     default_threshold = config[:defaults].split(',')
     raise 'Invalid default threshold parameter count' unless default_threshold.size == 4
@@ -160,7 +190,7 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
     att_check_list = find_attributes
 
     # Devices to check
-    devices = config[:debug_file].nil? ? find_devices : ['sda']
+    devices = config[:debug_file].nil? ? find_devices : [Disk.new('sda', nil, nil)]
 
     # Overall health and attributes parameter
     parameters = '-H -A'
@@ -174,10 +204,10 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
     warnings = []
     criticals = []
     devices.each do |dev|
-      puts "#{config[:binary]} #{parameters} /dev/#{dev}" if @smart_debug
+      puts "#{config[:binary]} #{parameters} #{dev.device_path}" if @smart_debug
       # check if debug file specified
       if config[:debug_file].nil?
-        output[dev] = `sudo #{config[:binary]} #{parameters} /dev/#{dev}`
+        output[dev] = `sudo #{config[:binary]} #{parameters} #{dev.device_path}`
       else
         test_file = File.open(config[:debug_file], 'rb')
         output[dev] = test_file.read
@@ -186,13 +216,13 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
 
       # check overall helath status
       if config[:overall] == 'on' && !output[dev].include?('SMART overall-health self-assessment test result: PASSED')
-        criticals << "Overall health check failed on #{dev}"
+        criticals << "Overall health check failed on #{dev.name}"
       end
 
       # #YELLOW
       output[dev].split("\n").each do |line|
         fields = line.split
-        if fields.size == 10 && fields[0].to_i != 0 && att_check_list.include?(fields[0].to_i)
+        if fields.size == 10 && fields[0].to_i != 0 && att_check_list.include?(fields[0].to_i) && (dev.smart_ignore?(fields[0].to_i) == false)
           smart_att = @smart_attributes.find { |att| att[:id] == fields[0].to_i }
           att_value = fields[9].to_i
           att_value = send(smart_att[:read], att_value) unless smart_att[:read].nil?
@@ -235,24 +265,40 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
   # find all devices from /proc/partitions or from parameter
   #
   def find_devices
-    # Return parameter value if it's defined
-    return config[:devices].split(',') unless config[:devices] == 'all'
-
-    # List all device and split it by new line
-    all = `cat /proc/partitions`.split("\n")
-
-    # Delete first two row (header and empty line)
-    (1..2).each { all.delete_at(0) }
-
     # Search for devices without number
     devices = []
-    all.each do |line|
-      partition = line.scan(/\w+/).last.scan(/^\D+$/).first
-      next if partition.nil?
-      output = `sudo #{config[:binary]} -i /dev/#{partition}`
-      available = !output.scan(/SMART support is: Available/).empty?
-      enabled = !output.scan(/SMART support is: Enabled/).empty?
-      devices << partition if available && enabled
+
+    # Return parameter value if it's defined
+    if config[:devices] != 'all'
+      config[:devices].split(',').each do |dev|
+        devices << Disk.new(dev.to_s, '', nil)
+      end
+      return devices
+    end
+
+    `lsblk -nro NAME,TYPE`.each_line do |line|
+      name, type = line.split
+
+      if type == 'disk'
+        jconfig = @hardware.find { |h1| h1[:path] == name }
+
+        if jconfig.nil?
+          override = nil
+          ignore = nil
+        else
+          override = jconfig[:override]
+          ignore = jconfig[:ignore]
+        end
+
+        device = Disk.new(name, override, ignore)
+
+        output = `sudo #{config[:binary]} -i #{device.device_path}`
+
+        # Check if we can use this device or not
+        available = !output.scan(/SMART support is:\+sAvailable/).empty?
+        enabled = !output.scan(/SMART support is:\+sEnabled/).empty?
+        devices << device if available && enabled
+      end
     end
 
     devices

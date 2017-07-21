@@ -37,6 +37,7 @@
 #
 
 require 'sensu-plugin/check/cli'
+require 'json'
 
 #
 # Disk
@@ -44,11 +45,13 @@ require 'sensu-plugin/check/cli'
 class Disk
   # Setup variables
   #
-  def initialize(name)
+  def initialize(name, override, binary)
     @device_path = "/dev/#{name}"
     @smart_available = false
     @smart_enabled = false
     @smart_healty = nil
+    @smart_binary = binary
+    @override_path = override
     check_smart_capability!
     check_health! if smart_capable?
   end
@@ -61,10 +64,20 @@ class Disk
     @smart_available && @smart_enabled
   end
 
+  # Is the device SMART capable and enabled
+  #
+  def device_path
+    if @override_path.nil?
+      @device_path
+    else
+      @override_path
+    end
+  end
+
   # Check for SMART cspability
   #
   def check_smart_capability!
-    output = `sudo smartctl -i #{@device_path}`
+    output = `sudo #{@smart_binary} -i #{@device_path}`
     @smart_available = !output.scan(/SMART support is:\s+Available/).empty?
     @smart_enabled = !output.scan(/SMART support is:\s+Enabled/).empty?
     @capability_output = output
@@ -73,7 +86,7 @@ class Disk
   # Check the SMART health
   #
   def check_health!
-    output = `sudo smartctl -H #{@device_path}`
+    output = `sudo #{@smart_binary} -H #{@device_path}`
     @smart_healthy = !output.scan(/PASSED|OK$/).empty?
     @health_output = output
   end
@@ -89,11 +102,29 @@ class CheckSMART < Sensu::Plugin::Check::CLI
          proc: proc(&:to_sym),
          default: :unknown
 
+  option :binary,
+         short: '-b path/to/smartctl',
+         long: '--binary /usr/sbin/smartctl',
+         description: 'smartctl binary to use, in case you hide yours',
+         required: false,
+         default: 'smartctl'
+
+  option :json,
+         short: '-j path/to/smart.json',
+         long: '--json path/to/smart.json',
+         description: 'Path to SMART attributes JSON file',
+         required: false,
+         default: File.dirname(__FILE__) + '/smart.json'
+
   # Setup variables
   #
   def initialize
     super
     @devices = []
+
+    # Load in the device configuration
+    @hardware = JSON.parse(IO.read(config[:json]), symbolize_names: true)[:hardware][:devices]
+
     scan_disks!
   end
 
@@ -102,7 +133,22 @@ class CheckSMART < Sensu::Plugin::Check::CLI
   def scan_disks!
     `lsblk -nro NAME,TYPE`.each_line do |line|
       name, type = line.split
-      @devices << Disk.new(name) if type == 'disk'
+
+      if type == 'disk'
+        jconfig = @hardware.find { |h1| h1[:path] == name }
+
+        override = !jconfig.nil? ? jconfig[:override] : nil
+
+        device = Disk.new(name, override, config[:binary])
+
+        output = `sudo #{config[:binary]} -i #{device.device_path}`
+
+        # Check if we can use this device or not
+        available = !output.scan(/SMART support is:\s+Available/).empty?
+        enabled = !output.scan(/SMART support is:\s+Enabled/).empty?
+
+        @devices << device if available && enabled
+      end
     end
   end
 

@@ -68,7 +68,7 @@ Check the status of SMART offline tests and optionally check if tests were execu
 
 ## Usage
 
-This is a sample input file used by check-smart-status, see the script for further details.
+This is a sample input file used by check-smart-status and check-smart, see the script for further details.
 ```json
 {
   "smart": {
@@ -89,6 +89,12 @@ This is a sample input file used by check-smart-status, see the script for furth
       { "id": 201, "name": "Unc_Soft_read_Err_Rate", "read": "left16bit" },
       { "id": 230, "name": "Life_Curve_Status", "crit_min": 100, "warn_min": 100, "warn_max": 100, "crit_max": 100 }
     ]
+  },
+  "hardware": {
+    "devices": [
+	  { "path": "sda", "ignore" : [ 187 ] },
+	  { "path": "sdb", "override": "/dev/twa0 -d 3ware,0" }
+	]
   }
 }
 ```
