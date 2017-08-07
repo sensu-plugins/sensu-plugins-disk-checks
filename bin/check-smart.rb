@@ -77,7 +77,7 @@ class Disk
   # Check for SMART cspability
   #
   def check_smart_capability!
-    output = `sudo #{@smart_binary} -i #{@device_path}`
+    output = `sudo #{@smart_binary} -i #{device_path}`
     @smart_available = !output.scan(/SMART support is:\s+Available/).empty?
     @smart_enabled = !output.scan(/SMART support is:\s+Enabled/).empty?
     @capability_output = output
@@ -86,7 +86,7 @@ class Disk
   # Check the SMART health
   #
   def check_health!
-    output = `sudo #{@smart_binary} -H #{@device_path}`
+    output = `sudo #{@smart_binary} -H #{device_path}`
     @smart_healthy = !output.scan(/PASSED|OK$/).empty?
     @health_output = output
   end
