@@ -3,6 +3,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
+## [2.4.1] - 2017-08-07
+### Fixed
+- check-smart.rb: Fixed 'override' being ignored (@sovaa)
+
 ## [Unreleased]
 
 ## [2.4.0] - 2017-07-20
