@@ -5,6 +5,9 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## [Unreleased]
 
+### Fixed
+- check-smart.rb: Fixed 'override' being ignored (@sovaa)
+
 ## [2.4.0] - 2017-07-20
 - check-smart.rb: Add path overrides via smart.json (@ArakniD)
 - check-smart-status.rb: Add path overrides via smart.json (@ArakniD)
