@@ -295,8 +295,8 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
         output = `sudo #{config[:binary]} -i #{device.device_path}`
 
         # Check if we can use this device or not
-        available = !output.scan(/SMART support is:\+sAvailable/).empty?
-        enabled = !output.scan(/SMART support is:\+sEnabled/).empty?
+        available = !output.scan(/SMART support is:\s+Available/).empty?
+        enabled = !output.scan(/SMART support is:\s+Enabled/).empty?
         devices << device if available && enabled
       end
     end
