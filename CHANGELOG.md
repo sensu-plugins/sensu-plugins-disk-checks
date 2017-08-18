@@ -5,6 +5,10 @@ This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachang
 
 ## [Unreleased]
 
+## [2.4.2] - 2017-08-17
+### Fixed
+- check-smart-status.rb: fixed regex for `Available` and `Enabled` (@nagyt234)
+
 ## [2.4.1] - 2017-08-08
 ### Fixed
 - check-smart.rb: Fixed 'override' being ignored (@sovaa)
@@ -141,8 +145,9 @@ https://mathias-kettner.de/checkmk_filesystems.html
 ### Added
 - initial release
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.4.1...HEAD
-[1.4.1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.4.0...2.4.1
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.4.2...HEAD
+[2.4.2]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.4.1...2.4.2
+[2.4.1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.4.0...2.4.1
 [2.4.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.3.0...2.4.0
 [2.3.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.2.0...2.3.0
 [2.2.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.1.0...2.2.0
