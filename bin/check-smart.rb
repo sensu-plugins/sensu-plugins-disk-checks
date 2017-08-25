@@ -78,8 +78,17 @@ class Disk
   #
   def check_smart_capability!
     output = `sudo #{@smart_binary} -i #{device_path}`
+
+    # Newer smartctl
     @smart_available = !output.scan(/SMART support is:\s+Available/).empty?
     @smart_enabled = !output.scan(/SMART support is:\s+Enabled/).empty?
+
+    unless smart_capable?
+      # Older smartctl
+      @smart_available = !output.scan(/Device supports SMART/).empty?
+      @smart_enabled = !output.scan(/and is Enabled/).empty?
+    end
+
     @capability_output = output
   end
 
@@ -98,9 +107,17 @@ end
 class CheckSMART < Sensu::Plugin::Check::CLI
   option :smart_incapable_disks,
          long: '--smart-incapable-disks EXIT_CODE',
-         description: 'Exit code when SMART is unavailable/disabled on a disk (ok, warn, critical, unknown)',
+         description: 'Exit code when SMART is unavailable/disabled on a disk',
          proc: proc(&:to_sym),
-         default: :unknown
+         default: :unknown,
+         in: %i(unknown ok warn critical)
+
+  option :no_smart_capable_disks,
+         long: '--no-smart-capable-disks EXIT_CODE',
+         description: 'Exit code when there are no SMART capable disks',
+         proc: proc(&:to_sym),
+         default: :unknown,
+         in: %i(unknown ok warn critical)
 
   option :binary,
          short: '-b path/to/smartctl',
@@ -123,7 +140,11 @@ class CheckSMART < Sensu::Plugin::Check::CLI
     @devices = []
 
     # Load in the device configuration
-    @hardware = JSON.parse(IO.read(config[:json]), symbolize_names: true)[:hardware][:devices]
+    @hardware = if File.readable?(config[:json])
+                  JSON.parse(IO.read(config[:json]), symbolize_names: true)[:hardware][:devices]
+                else
+                  {}
+                end
 
     scan_disks!
   end
@@ -141,13 +162,7 @@ class CheckSMART < Sensu::Plugin::Check::CLI
 
         device = Disk.new(name, override, config[:binary])
 
-        output = `sudo #{config[:binary]} -i #{device.device_path}`
-
-        # Check if we can use this device or not
-        available = !output.scan(/SMART support is:\s+Available/).empty?
-        enabled = !output.scan(/SMART support is:\s+Enabled/).empty?
-
-        @devices << device if available && enabled
+        @devices << device if device.smart_capable?
       end
     end
   end
@@ -155,7 +170,10 @@ class CheckSMART < Sensu::Plugin::Check::CLI
   # Main function
   #
   def run
-    unknown 'No SMART capable devices found' unless @devices.length > 0
+    exit_with(
+      config[:no_smart_capable_disks],
+      'No SMART capable devices found'
+    ) unless @devices.length > 0
 
     unhealthy_disks = @devices.select { |disk| disk.smart_capable? && !disk.healthy? }
     unknown_disks = @devices.reject(&:smart_capable?)

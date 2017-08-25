@@ -4,6 +4,15 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+### Changed
+- check-smart.rb: The JSON file is now does not need to exist
+
+### Added
+- check-smart.rb: Add support for legacy smartctl output relating to `Available` and `Enabled`
+- check-smart.rb: Add option to specify the exit code to use when there are no smart capable devices
+
+### Removed
+- check-smart.rb: Removed duplicated smartctl runs
 
 ## [2.4.2] - 2017-08-17
 ### Fixed
