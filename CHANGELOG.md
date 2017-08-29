@@ -4,12 +4,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+
+## [2.5.0] - 2017-08-28
 ### Changed
-- check-smart.rb: The JSON file is now does not need to exist
+- check-smart.rb: The JSON file is now does not need to exist (@ChrisPortman)
 
 ### Added
-- check-smart.rb: Add support for legacy smartctl output relating to `Available` and `Enabled`
-- check-smart.rb: Add option to specify the exit code to use when there are no smart capable devices
+- check-smart.rb: Add support for legacy smartctl output relating to `Available` and `Enabled` (@ChrisPortman)
+- check-smart.rb: Add option to specify the exit code to use when there are no smart capable devices (@ChrisPortman)
 
 ### Removed
 - check-smart.rb: Removed duplicated smartctl runs
@@ -154,7 +156,8 @@ https://mathias-kettner.de/checkmk_filesystems.html
 ### Added
 - initial release
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.4.2...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.5.0...HEAD
+[2.5.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.4.2...2.5.0
 [2.4.2]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.4.1...2.4.2
 [2.4.1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.4.0...2.4.1
 [2.4.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.3.0...2.4.0
