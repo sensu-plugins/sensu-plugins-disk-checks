@@ -4,6 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+### Fixed
+- check-disk-usage.rb: now exits unknown instead of critical when retrieving mountpoints fail
 
 ## [2.5.0] - 2017-08-28
 ### Changed
