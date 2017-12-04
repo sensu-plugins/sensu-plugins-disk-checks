@@ -118,7 +118,12 @@ class CheckDisk < Sensu::Plugin::Check::CLI
   # Get mount data
   #
   def fs_mounts
-    Filesystem.mounts.each do |line|
+    begin
+      mounts = Filesystem.mounts
+    rescue
+      unknown 'An error occured getting the mount info'
+    end
+    mounts.each do |line|
       begin
         next if config[:fstype] && !config[:fstype].include?(line.mount_type)
         next if config[:ignoretype] && config[:ignoretype].include?(line.mount_type)
