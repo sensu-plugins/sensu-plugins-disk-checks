@@ -1,13 +1,16 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
+This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins/community/blob/master/HOW_WE_CHANGELOG.md)
 
 ## [Unreleased]
 
+### Changed
+- updated the changelog location guidelines (@majormoses)
+
 ## [2.5.1] - 2017-12-05
 ### Fixed
-- check-disk-usage.rb: now exits unknown instead of critical when retrieving mountpoints fail
+- check-disk-usage.rb: now exits unknown instead of critical when retrieving mountpoints fail (@exeral)
 
 ## [2.5.0] - 2017-08-28
 ### Changed
