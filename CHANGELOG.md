@@ -4,6 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed at [Keep A Changelog](http://keepachangelog.com/)
 
 ## [Unreleased]
+
+## [2.5.1] - 2017-12-05
 ### Fixed
 - check-disk-usage.rb: now exits unknown instead of critical when retrieving mountpoints fail
 
@@ -158,7 +160,8 @@ https://mathias-kettner.de/checkmk_filesystems.html
 ### Added
 - initial release
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.5.0...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.5.1...HEAD
+[2.5.1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.5.0...2.5.1
 [2.5.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.4.2...2.5.0
 [2.4.2]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.4.1...2.4.2
 [2.4.1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.4.0...2.4.1
