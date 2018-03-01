@@ -174,7 +174,7 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
     unless config[:threshold].nil?
       thresholds = config[:threshold].split(',')
       # Check threshold parameter length
-      raise 'Invalid threshold parameter count' unless thresholds.size % 5 == 0
+      raise 'Invalid threshold parameter count' unless (thresholds.size % 5).zero?
 
       (0..(thresholds.size / 5 - 1)).each do |i|
         att_id = @smart_attributes.index { |att| att[:id] == thresholds[i + 0].to_i }
@@ -203,7 +203,8 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
     output = {}
     warnings = []
     criticals = []
-    devices.each do |dev|
+    # TODO: refactor me
+    devices.each do |dev| # rubocop:disable Metrics/BlockLength
       puts "#{config[:binary]} #{parameters} #{dev.device_path}" if @smart_debug
       # check if debug file specified
       if config[:debug_file].nil?

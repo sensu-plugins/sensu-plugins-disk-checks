@@ -1,5 +1,4 @@
 #! /usr/bin/env ruby
-#  encoding: UTF-8
 #
 #   disk-metrics
 #
@@ -66,7 +65,7 @@ class DiskGraphite < Sensu::Plugin::Metric::CLI::Graphite
   # Main function
   def run
     # http://www.kernel.org/doc/Documentation/iostats.txt
-    metrics = %w(reads readsMerged sectorsRead readTime writes writesMerged sectorsWritten writeTime ioInProgress ioTime ioTimeWeighted)
+    metrics = %w[reads readsMerged sectorsRead readTime writes writesMerged sectorsWritten writeTime ioInProgress ioTime ioTimeWeighted]
 
     File.open('/proc/diskstats', 'r').each_line do |line|
       stats = line.strip.split(/\s+/)

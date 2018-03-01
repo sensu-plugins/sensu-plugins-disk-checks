@@ -5,8 +5,15 @@ This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins
 
 ## [Unreleased]
 
+### Security
+- updated rubocop dependency to `~> 0.51.0` per: https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-8418. (@majormoses)
+
+### Breaking Changes
+- removed ruby `< 2.1` support (@majormoses)
+
 ### Changed
 - updated the changelog location guidelines (@majormoses)
+- appeased the cops and created TODOs for refactoring (@majormoses)
 
 ## [2.5.1] - 2017-12-05
 ### Fixed

@@ -59,7 +59,7 @@ class Device
 
   def selftest_results
     results = []
-    headers = %w(num test_description status remaining lifetime lba_of_first_error)
+    headers = %w[num test_description status remaining lifetime lba_of_first_error]
 
     `sudo #{@exec} -l selftest #{@name}`.split("\n").grep(/^#/).each do |test|
       test = test.gsub!(/\s\s+/m, "\t").split("\t")
@@ -146,7 +146,8 @@ class CheckSMARTTests < Sensu::Plugin::Check::CLI
       end
     end
 
-    unless config[:long_test_interval].nil?
+    # TODO: refactor me
+    unless config[:long_test_interval].nil? # rubocop:disable Style/GuardClause
       dev.str.each_with_index do |t, i|
         if t['test_description'] != 'Extended offline'
           if i == dev.str.length - 1

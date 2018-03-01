@@ -1,5 +1,4 @@
 #! /usr/bin/env ruby
-#  encoding: UTF-8
 #
 #   disk-capacity-metrics
 #
@@ -78,7 +77,7 @@ class DiskCapacity < Sensu::Plugin::Metric::CLI::Graphite
             end
           end
         end
-      rescue
+      rescue StandardError
         unknown "malformed line from df: #{line}"
       end
     end
@@ -104,7 +103,7 @@ class DiskCapacity < Sensu::Plugin::Metric::CLI::Graphite
             end
           end
         end
-      rescue
+      rescue StandardError
         unknown "malformed line from df: #{line}"
       end
     end
