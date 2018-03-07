@@ -5,6 +5,7 @@ This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins
 
 ## [Unreleased]
 
+## [3.0.0] - 2018-03-07
 ### Security
 - updated rubocop dependency to `~> 0.51.0` per: https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-8418. (@majormoses)
 
@@ -170,7 +171,8 @@ https://mathias-kettner.de/checkmk_filesystems.html
 ### Added
 - initial release
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.5.1...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/3.0.0...HEAD
+[3.0.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.5.1...3.0.0
 [2.5.1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.5.0...2.5.1
 [2.5.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.4.2...2.5.0
 [2.4.2]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.4.1...2.4.2
