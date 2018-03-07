@@ -120,7 +120,7 @@ class CheckDisk < Sensu::Plugin::Check::CLI
   def fs_mounts
     begin
       mounts = Filesystem.mounts
-    rescue
+    rescue StandardError
       unknown 'An error occured getting the mount info'
     end
     mounts.each do |line|
@@ -131,7 +131,7 @@ class CheckDisk < Sensu::Plugin::Check::CLI
         next if config[:ignorepathre] && config[:ignorepathre].match(line.mount_point)
         next if config[:ignoreopt] && config[:ignoreopt].include?(line.options)
         next if config[:includemnt] && !config[:includemnt].include?(line.mount_point)
-      rescue
+      rescue StandardError
         unknown 'An error occured getting the mount info'
       end
       check_mount(line)
@@ -150,7 +150,7 @@ class CheckDisk < Sensu::Plugin::Check::CLI
   def check_mount(line)
     begin
       fs_info = Filesystem.stat(line.mount_point)
-    rescue
+    rescue StandardError
       @warn_fs << "#{line.mount_point} Unable to read."
       return
     end

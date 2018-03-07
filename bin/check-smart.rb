@@ -1,5 +1,4 @@
 #! /usr/bin/env ruby
-#  encoding: UTF-8
 #
 #   check-smart
 #
@@ -110,14 +109,14 @@ class CheckSMART < Sensu::Plugin::Check::CLI
          description: 'Exit code when SMART is unavailable/disabled on a disk',
          proc: proc(&:to_sym),
          default: :unknown,
-         in: %i(unknown ok warn critical)
+         in: %i[unknown ok warn critical]
 
   option :no_smart_capable_disks,
          long: '--no-smart-capable-disks EXIT_CODE',
          description: 'Exit code when there are no SMART capable disks',
          proc: proc(&:to_sym),
          default: :unknown,
-         in: %i(unknown ok warn critical)
+         in: %i[unknown ok warn critical]
 
   option :binary,
          short: '-b path/to/smartctl',
@@ -170,10 +169,12 @@ class CheckSMART < Sensu::Plugin::Check::CLI
   # Main function
   #
   def run
-    exit_with(
-      config[:no_smart_capable_disks],
-      'No SMART capable devices found'
-    ) unless @devices.length > 0
+    unless @devices.length > 0
+      exit_with(
+        config[:no_smart_capable_disks],
+        'No SMART capable devices found'
+      )
+    end
 
     unhealthy_disks = @devices.select { |disk| disk.smart_capable? && !disk.healthy? }
     unknown_disks = @devices.reject(&:smart_capable?)
