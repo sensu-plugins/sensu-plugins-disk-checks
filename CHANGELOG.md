@@ -5,6 +5,7 @@ This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins
 
 ## [Unreleased]
 
+## [3.0.1] - 2018-03-27
 ### Security
 - updated yard dependency to `~> 0.9.11` per: https://nvd.nist.gov/vuln/detail/CVE-2017-17042 (@majormoses)
 
@@ -174,7 +175,8 @@ https://mathias-kettner.de/checkmk_filesystems.html
 ### Added
 - initial release
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/3.0.0...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/3.0.1...HEAD
+[3.0.1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/3.0.0...3.0.1
 [3.0.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.5.1...3.0.0
 [2.5.1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.5.0...2.5.1
 [2.5.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.4.2...2.5.0
