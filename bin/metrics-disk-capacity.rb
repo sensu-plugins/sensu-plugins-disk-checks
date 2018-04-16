@@ -57,11 +57,11 @@ class DiskCapacity < Sensu::Plugin::Metric::CLI::Graphite
   #
   def run
     # Get capacity metrics from DF as they don't appear in /proc
-    if Gem::Platform.local.os == 'solaris'
-      command = "df -k"
-    else
-      command = "df -PT"
-    end
+    command = if Gem::Platform.local.os == 'solaris'
+                'df -k'
+              else
+                'df -PT'
+              end
     `#{command}`.split("\n").drop(1).each do |line|
       begin
         fs, _type, _blocks, used, avail, capacity, _mnt = line.split
