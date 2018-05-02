@@ -5,7 +5,7 @@ This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins
 
 ## [Unreleased]
 ### Added
-- metrics-disk-capacity.rb, added `solaris` compatibility (@makaveli0129)
+- metrics-disk-capacity.rb, added `solaris` compatibility. Does not support inodes on `solaris` (@makaveli0129).
 - metrics-disk-usage.rb: added `solaris` compatibility. Does not support block_size for config (@makaveli0129)
 
 ## [3.0.1] - 2018-03-27
