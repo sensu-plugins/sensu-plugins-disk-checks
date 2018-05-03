@@ -57,13 +57,18 @@ class DiskCapacity < Sensu::Plugin::Metric::CLI::Graphite
   #
   def run
     # Get capacity metrics from DF as they don't appear in /proc
-    `df -PT`.split("\n").drop(1).each do |line|
+    command = if Gem::Platform.local.os == 'solaris'
+                'df -k'
+              else
+                'df -PT'
+              end
+    `#{command}`.split("\n").drop(1).each do |line|
       begin
         fs, _type, _blocks, used, avail, capacity, _mnt = line.split
 
         timestamp = Time.now.to_i
         if fs =~ /\/dev/
-          fs = fs.gsub('/dev/', '')
+          fs = fs.tr('/dev/', '')
           metrics = {
             disk: {
               "#{fs}.used" => used,
@@ -83,28 +88,30 @@ class DiskCapacity < Sensu::Plugin::Metric::CLI::Graphite
     end
 
     # Get inode capacity metrics
-    `df -Pi`.split("\n").drop(1).each do |line|
-      begin
-        fs, _inodes, used, avail, capacity, _mnt = line.split
+    if Gem::Platform.local.os != 'solaris'
+      `df -Pi`.split("\n").drop(1).each do |line|
+        begin
+          fs, _inodes, used, avail, capacity, _mnt = line.split
 
-        timestamp = Time.now.to_i
-        if fs =~ /\/dev/
-          fs = fs.gsub('/dev/', '')
-          metrics = {
-            disk: {
-              "#{fs}.iused" => used,
-              "#{fs}.iavail" => avail,
-              "#{fs}.icapacity" => capacity.delete('%')
+          timestamp = Time.now.to_i
+          if fs =~ /\/dev/
+            fs = fs.tr('/dev/', '')
+            metrics = {
+              disk: {
+                "#{fs}.iused" => used,
+                "#{fs}.iavail" => avail,
+                "#{fs}.icapacity" => capacity.delete('%')
+              }
             }
-          }
-          metrics.each do |parent, children|
-            children.each do |child, value|
-              output [config[:scheme], parent, child].join('.'), value, timestamp
+            metrics.each do |parent, children|
+              children.each do |child, value|
+                output [config[:scheme], parent, child].join('.'), value, timestamp
+              end
             end
           end
+        rescue StandardError
+          unknown "malformed line from df: #{line}"
         end
-      rescue StandardError
-        unknown "malformed line from df: #{line}"
       end
     end
     ok
