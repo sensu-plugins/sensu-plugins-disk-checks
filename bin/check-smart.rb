@@ -105,14 +105,14 @@ end
 #
 class CheckSMART < Sensu::Plugin::Check::CLI
   option :smart_incapable_disks,
-         long: '--smart-incapable-disks EXIT_CODE',
+         long: '--smart_incapable_disks EXIT_CODE',
          description: 'Exit code when SMART is unavailable/disabled on a disk',
          proc: proc(&:to_sym),
          default: :unknown,
          in: %i[unknown ok warn critical]
 
   option :no_smart_capable_disks,
-         long: '--no-smart-capable-disks EXIT_CODE',
+         long: '--no_smart_capable_disks EXIT_CODE',
          description: 'Exit code when there are no SMART capable disks',
          proc: proc(&:to_sym),
          default: :unknown,
