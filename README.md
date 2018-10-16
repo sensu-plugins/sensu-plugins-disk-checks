@@ -18,6 +18,20 @@ Can adjust thresholds for larger filesystems by providing a 'magic factor'
 The `-l` option can be used in combination with the 'magic factor' to specify
 the minimum size volume to adjust the thresholds for.
 
+By default all mounted filesystems are checked.
+
+The `-x` option can be used to exclude one or more filesystem types. e.g.
+
+    check-disk-usage.rb -x debugfs,tracefs
+
+The `-p` option can be used to exlucde specific mount points. e.g.
+
+    check-disk-usage.rb -p /run/lxcfs
+
+It's also possible to use regular expressions with the `-x` or `-p` option
+
+    check-disk-usage.rb -p '(\/var|\/run|\/sys|\/snap)'
+
 Refer to [check_mk's](https://mathias-kettner.de/checkmk_filesystems.html)
 documentation on adaptive thresholds.
 
