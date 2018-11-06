@@ -272,7 +272,7 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
     # Return parameter value if it's defined
     if config[:devices] != 'all'
       config[:devices].split(',').each do |dev|
-        devices << Disk.new(dev.to_s, '', nil)
+        devices << Disk.new(dev.to_s, nil, nil)
       end
       return devices
     end

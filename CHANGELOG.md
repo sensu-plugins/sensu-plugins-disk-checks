@@ -7,6 +7,9 @@ This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins
 ### Added
 - check-disk-usage: adds documentation for `-x` and `-p` options
 
+### Fixed
+- `check-smart-status.rb`: do not override_path when specifying device from the CLI. (@marcdeop)
+
 ## [3.1.0] - 2018-05-02
 ### Added
 - metrics-disk-capacity.rb, added `solaris` compatibility. Does not support inodes on `solaris` (@makaveli0129).
