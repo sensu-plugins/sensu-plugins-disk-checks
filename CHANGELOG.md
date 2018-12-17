@@ -4,6 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins/community/blob/master/HOW_WE_CHANGELOG.md)
 
 ## [Unreleased]
+### Fixed
+- metrics-disk-capacity.rb: incorrect translation of devicenames (@nmollerup)
+
 ### Added
 - check-disk-usage: adds documentation for `-x` and `-p` options
 
