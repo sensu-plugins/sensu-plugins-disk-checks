@@ -68,7 +68,7 @@ class DiskCapacity < Sensu::Plugin::Metric::CLI::Graphite
 
         timestamp = Time.now.to_i
         if fs =~ /\/dev/
-          fs = fs.tr('/dev/', '')
+          fs = fs.sub('/dev/', '')
           metrics = {
             disk: {
               "#{fs}.used" => used,
@@ -95,7 +95,7 @@ class DiskCapacity < Sensu::Plugin::Metric::CLI::Graphite
 
           timestamp = Time.now.to_i
           if fs =~ /\/dev/
-            fs = fs.tr('/dev/', '')
+            fs = fs.sub('/dev/', '')
             metrics = {
               disk: {
                 "#{fs}.iused" => used,
