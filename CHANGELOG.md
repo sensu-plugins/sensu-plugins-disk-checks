@@ -5,7 +5,10 @@ This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins
 
 ## [Unreleased]
 
-## [3.1.0] - 2018-01-07
+### Breaking Changes
+- check-smart.rb: fixing a `undefined` error by renaming `no-smart-capable-disks` to `--zero-smart-capable_disks` as the parser sees any `--no-` argument and attempts to negate it which a `(True|False)Class` can not be cast to a symbol (@bdeluca)
+
+## [3.1.1] - 2018-01-07
 ### Fixed
 - metrics-disk-capacity.rb: incorrect translation of devicenames by switching to `sub`. This differs by replacing only the first occurrence of `/dev/` as opposed to all occurrences (@nmollerup)
 
