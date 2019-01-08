@@ -1,3 +1,5 @@
+AllCops:
+  TargetRubyVersion: 2.3
 
 MethodLength:
   Max: 200
@@ -50,3 +52,9 @@ Style/HashTransformKeys:
 Style/HashTransformValues:
   Enabled: true
 
+Style/NumericPredicate:
+  Enabled: false
+
+# syntax is non obvious to a non ruby developer
+Style/SafeNavigation:
+  Enabled: false

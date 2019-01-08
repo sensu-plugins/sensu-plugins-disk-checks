@@ -196,8 +196,17 @@ class CheckDisk < Sensu::Plugin::Check::CLI
   end
 
   def to_human(size)
-    unit = [[1_099_511_627_776, 'TiB'], [1_073_741_824, 'GiB'], [1_048_576, 'MiB'], [1024, 'KiB'], [0, 'B']].detect { |u| size >= u[0] }
-    format("%.2f #{unit[1]}", (size >= 1024 ? size.to_f / unit[0] : size))
+    unit = [
+      [1_099_511_627_776, 'TiB'],
+      [1_073_741_824, 'GiB'],
+      [1_048_576, 'MiB'],
+      [1024, 'KiB'],
+      [0, 'B']
+    ].detect { |u| size >= u[0] }
+    format(
+      "%.2f #{unit[1]}",
+      (size >= 1024 ? size.to_f / unit[0] : size)
+    )
   end
 
   # Determine the percent inode usage
