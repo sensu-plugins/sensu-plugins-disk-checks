@@ -3,11 +3,14 @@ services:
 - docker
 cache:
 - bundler
+before_install:
+- bundle update --bundler
 install:
 - bundle install
 rvm:
 - 2.3.0
 - 2.4.1
+- 2.5.3
 notifications:
   email:
     recipients:
