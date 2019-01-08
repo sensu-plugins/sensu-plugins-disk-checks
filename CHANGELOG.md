@@ -4,8 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins/community/blob/master/HOW_WE_CHANGELOG.md)
 
 ## [Unreleased]
+
+## [3.1.0] - 2018-01-07
 ### Fixed
-- metrics-disk-capacity.rb: incorrect translation of devicenames (@nmollerup)
+- metrics-disk-capacity.rb: incorrect translation of devicenames by switching to `sub`. This differs by replacing only the first occurrence of `/dev/` as opposed to all occurrences (@nmollerup)
 
 ### Added
 - check-disk-usage: adds documentation for `-x` and `-p` options
@@ -185,7 +187,8 @@ https://mathias-kettner.de/checkmk_filesystems.html
 ### Added
 - initial release
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/3.1.0...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/3.1.1...HEAD
+[3.1.1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/3.1.0...3.1.1
 [3.1.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/3.0.1...3.1.0
 [3.0.1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/3.0.0...3.0.1
 [3.0.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/2.5.1...3.0.0
