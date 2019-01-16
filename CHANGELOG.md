@@ -5,7 +5,7 @@ This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins
 
 ## [Unreleased]
 ### Fixed
-- check-smart-status.rb: Check for overrides when --device is used (#110)
+- check-smart-status.rb: Check for overrides when --device is used (@GwennG)
 
 ### Breaking Changes
 - check-smart.rb: fixing a `undefined` error by renaming `no-smart-capable-disks` to `--zero-smart-capable_disks` as the parser sees any `--no-` argument and attempts to negate it which a `(True|False)Class` can not be cast to a symbol (@bdeluca)
