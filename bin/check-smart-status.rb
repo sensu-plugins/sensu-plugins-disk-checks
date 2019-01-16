@@ -272,7 +272,16 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
     # Return parameter value if it's defined
     if config[:devices] != 'all'
       config[:devices].split(',').each do |dev|
-        devices << Disk.new(dev.to_s, '', nil)
+        jconfig = @hardware.find { |h1| h1[:path] == dev }
+
+        if jconfig.nil?
+          override = nil
+          ignore = nil
+        else
+          override = jconfig[:override]
+          ignore = jconfig[:ignore]
+        end
+        devices << Disk.new(dev.to_s, override, ignore)
       end
       return devices
     end
