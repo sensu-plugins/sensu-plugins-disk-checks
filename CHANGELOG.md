@@ -4,7 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins/community/blob/master/HOW_WE_CHANGELOG.md)
 
 ## [Unreleased]
-### Fixed
+### Fixed
 - check-smart-status.rb: Check for overrides when --device is used (#110)
 
 ### Breaking Changes
