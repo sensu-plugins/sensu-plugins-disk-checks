@@ -63,6 +63,10 @@ class CheckDisk < Sensu::Plugin::Check::CLI
          description: 'Ignore option(s)',
          proc: proc { |a| a.split('.') }
 
+  option :ignorereadonly,
+         long: '--ignore-readonly'
+         description: 'Ignore read-only filesystems'
+
   option :bwarn,
          short: '-w PERCENT',
          description: 'Warn if PERCENT or more of disk full',
@@ -130,6 +134,7 @@ class CheckDisk < Sensu::Plugin::Check::CLI
         next if config[:ignoremnt] && config[:ignoremnt].include?(line.mount_point)
         next if config[:ignorepathre] && config[:ignorepathre].match(line.mount_point)
         next if config[:ignoreopt] && config[:ignoreopt].include?(line.options)
+        next if config[:ignorereadonly] && line.options.split(',').include?('ro')
         next if config[:includemnt] && !config[:includemnt].include?(line.mount_point)
       rescue StandardError
         unknown 'An error occured getting the mount info'
