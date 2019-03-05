@@ -272,7 +272,7 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
     # Return parameter value if it's defined
     if config[:devices] != 'all'
       config[:devices].split(',').each do |dev|
-        jconfig = @hardware.find { |h1| h1[:path] == dev }
+        jconfig = @hardware.find { |d| d[:path] == dev }
 
         if jconfig.nil?
           override = nil
