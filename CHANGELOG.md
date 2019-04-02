@@ -4,9 +4,18 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins/community/blob/master/HOW_WE_CHANGELOG.md)
 
 ## [Unreleased]
+### Breaking Changes
+- Update minimum required ruby version to 2.3. Drop unsupported ruby versions.
+- Update dependancy on sensu-plugin to 4.0
+### Added
+- Travis build automation to generate Sensu Asset tarballs that can be used n conjunction with Sensu provided ruby runtime assets and the Bonsai Asset Index
+- Require latest sensu-plugin for Sensu Go support
+
+## [4.0.1]
 ### Fixed
 - check-smart-status.rb: Check for overrides when --device is used (@GwennG)
 
+## [4.0.0] -
 ### Breaking Changes
 - check-smart.rb: fixing a `undefined` error by renaming `no-smart-capable-disks` to `--zero-smart-capable_disks` as the parser sees any `--no-` argument and attempts to negate it which a `(True|False)Class` can not be cast to a symbol (@bdeluca)
 
