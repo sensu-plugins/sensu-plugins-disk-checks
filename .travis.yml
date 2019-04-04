@@ -19,7 +19,7 @@ script:
 - gem build sensu-plugins-disk-checks.gemspec
 - gem install sensu-plugins-disk-checks-*.gem
 before_deploy:
-- git clone https://github.com/sensu/sensu-go-bonsai-asset.git --branch feature/ruby-plugin-assets bonsai
+- git clone https://github.com/sensu/sensu-go-bonsai-asset.git bonsai
 deploy:
 - provider: rubygems
   api_key:
