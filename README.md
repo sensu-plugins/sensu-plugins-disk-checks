@@ -6,6 +6,8 @@
 [![Test Coverage](https://codeclimate.com/github/sensu-plugins/sensu-plugins-disk-checks/badges/coverage.svg)](https://codeclimate.com/github/sensu-plugins/sensu-plugins-disk-checks)
 [![Dependency Status](https://gemnasium.com/sensu-plugins/sensu-plugins-disk-checks.svg)](https://gemnasium.com/sensu-plugins/sensu-plugins-disk-checks)
 
+[![Sensu Bonsai Asset](https://img.shields.io/badge/Bonsai-Download%20Me-brightgreen.svg?colorB=89C967&logo=sensu)](https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-disk-checks)
+
 ## Sensu Asset  
   The Sensu assets packaged from this repository depend on Sensu ruby runtime asset to provide the underlying ruby environment. When using the asset package as part of a check definition, make sure you include the corresponding Sensu ruby runtime asset in the list of assets needed by the check.
 
