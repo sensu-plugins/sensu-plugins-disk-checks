@@ -37,6 +37,3 @@ deploy:
     tags: true
     all_branches: true
     rvm: 2.4.1
-env:
-  global:
-    secure: u3KE2dilrbGB+Y+WS5fgqHw6VrPdaq0yUX2El8+19qphd0zCTRKMCClExL7LFAemO6KD/sRIXEt+8z+OqANkjW7duxkyI6R6jlbsOSbywbWYtnzz76axAOssNUlZA1CPwqnNtxPl2qBjNqRGOVyaZfEx3Kfd+2hRa4jJO4409GlEZW0tpWA633okQ2jzhsi5KoT2mzlHMLVuE4a/N7rrfnqbghegG/DbHV6sE4pIOegauTNM8USsAwgh9VPym5sHlX1VRFizP3ppDWnsJM8CDiz8P1pd4+i/3CHW6bJyiQN/roqjhe73YXpcml10Pk6rAfRJbRmY9vrCswwQcvO1Lg+OlKtyzEYbK3YTifFNxObEM/ak0fXAt83623vRIe+cKL80i1/gnggBXNipG6V3GiI9R8whxesF2lCyR5UQP7iUtTIGXfFQpCrdeixrLFuz/N0IWqi9OS3jTkuvdVqQ3XZAOi6CPXg0qnphFA/Tigsk8ajAs36V3iMQeOUcJy6sORQ0P1lqGPaxG2yQ96FZd7tkj0SUVQ3+Vtbts58Q4M6CUNuXsbresIXHz/hwSRLvMhIApCHVgY2t+vIJQ7Pt9GnDWl7OfKgwmSrlS8fKTYnXBhazqQIwX6QDcw9KratoZoMLjBmt6GvbrzCg+tPfaAx9SQKXLWUHvbJYxe+WxQc=
