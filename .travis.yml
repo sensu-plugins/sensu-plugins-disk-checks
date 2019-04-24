@@ -4,7 +4,7 @@ services:
 cache:
 - bundler
 before_install:
-- bundle update --bundler
+- bash -c 'if [ command -v bundler ]; then bundle update --bundler fi'
 install:
 - bundle install
 rvm:
