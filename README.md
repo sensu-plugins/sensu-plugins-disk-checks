@@ -1,5 +1,4 @@
-## Sensu-Plugins-disk-checks
-
+[![Bonsai Asset Badge](https://img.shields.io/badge/Sensu%20Disk%20Checks%20Plugin-Download%20Me-brightgreen.svg?colorB=89C967&logo=sensu)](https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-disk-checks)
 [![Build Status](https://travis-ci.org/sensu-plugins/sensu-plugins-disk-checks.svg?branch=master)](https://travis-ci.org/sensu-plugins/sensu-plugins-disk-checks)
 [![Gem Version](https://badge.fury.io/rb/sensu-plugins-disk-checks.svg)](http://badge.fury.io/rb/sensu-plugins-disk-checks)
 [![Code Climate](https://codeclimate.com/github/sensu-plugins/sensu-plugins-disk-checks/badges/gpa.svg)](https://codeclimate.com/github/sensu-plugins/sensu-plugins-disk-checks)
@@ -7,10 +6,130 @@
 [![Dependency Status](https://gemnasium.com/sensu-plugins/sensu-plugins-disk-checks.svg)](https://gemnasium.com/sensu-plugins/sensu-plugins-disk-checks)
 [![Sensu Bonsai Asset](https://img.shields.io/badge/Bonsai-Download%20Me-brightgreen.svg?colorB=89C967&logo=sensu)](https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-disk-checks)
 
-## Sensu Asset  
-  The Sensu assets packaged from this repository are built against the Sensu ruby runtime environment. When using these assets as part of a Sensu Go resource (check, mutator or handler), make sure you include the corresponding Sensu ruby runtime asset in the list of assets needed by the resource.  The current ruby-runtime assets can be found [here](https://bonsai.sensu.io/assets/sensu/sensu-ruby-runtime) in the [Bonsai Asset Index](bonsai.sensu.io).
 
-## Functionality
+## Sensu Disk Checks Plugin
+- [Overview](#overview)
+- [Usage examples](#usage-examples)
+- [Configuration](#configuration)
+  - [Sensu Go](#sensu-go)
+    - [Asset manifest](#asset-manifest)
+    - [Check manifest](#check-manifest)
+  - [Sensu Core](#sensu-core)
+    - [Check definition](#check-definition)
+- [Functionality](#functionality)
+- [Additional information](#additional-information)
+- [Installation from source and contributing](#installation-from-source-and-contributing)
+
+### Overview
+
+This plugin provides native disk instrumentation for monitoring and metrics collection, including: health, usage, and various metrics.
+
+#### Files
+ * bin/check-disk-usage.rb
+ * bin/check-fstab-mounts.rb
+ * bin/check-smart-status.rb
+ * bin/check-smart.rb
+ * bin/check-smart-tests.rb
+ * bin/metrics-disk.rb
+ * bin/metrics-disk-capacity.rb
+ * bin/metrics-disk-usage.rb
+
+### Usage examples
+
+#### Help
+
+**check-disk-usage.rb**
+```
+Usage: /opt/sensu/embedded/bin/check-disk-usage.rb (options)
+    -c PERCENT                       Critical if PERCENT or more of disk full
+    -w PERCENT                       Warn if PERCENT or more of disk full
+    -t TYPE[,TYPE]                   Only check fs type(s)
+    -K PERCENT                       Critical if PERCENT or more of inodes used
+    -i MNT[,MNT]                     Ignore mount point(s)
+    -o TYPE[.TYPE]                   Ignore option(s)
+    -p PATHRE                        Ignore mount point(s) matching regular expression
+    -x TYPE[,TYPE]                   Ignore fs type(s)
+    -I MNT[,MNT]                     Include only mount point(s)
+    -W PERCENT                       Warn if PERCENT or more of inodes used
+    -m MAGIC                         Magic factor to adjust warn/crit thresholds. Example: .9
+    -l MINIMUM                       Minimum size to adjust (in GB)
+    -n NORMAL                        Levels are not adapted for filesystems of exactly this size, where levels are reduced for smaller filesystems and raised for larger filesystems.
+```
+
+**metrics-disk-usage.rb**
+```
+Usage: /opt/sensu/embedded/bin/metrics-disk-usage.rb (options)
+    -B, --block-size BLOCK_SIZE      Set block size for sizes printed
+    -f, --flatten                    Output mounts with underscore rather than dot
+    -i, --ignore-mount MNT[,MNT]     Ignore mounts matching pattern(s)
+    -I, --include-mount MNT[,MNT]    Include only mounts matching pattern(s)
+    -l, --local                      Only check local filesystems (df -l option)
+        --scheme SCHEME              Metric naming scheme, text to prepend to .$parent.$child
+```
+
+
+### Configuration
+#### Sensu Go
+##### Asset registration
+
+Assets are the best way to make use of this handler. If you're not using an asset, please consider doing so! If you're using sensuctl 5.13 or later, you can use the following command to add the asset: 
+
+`sensuctl asset add sensu/sensu-email-handler`
+
+If you're using an earlier version of sensuctl, you can download the asset definition from [this project's Bonsai Asset Index page](https://bonsai.sensu.io/assets/sensu/sensu-email-handler).
+
+##### Asset manifest
+
+```yaml
+---
+type: Asset
+api_version: core/v2
+metadata:
+  name: sensu-plugins-disk-checks
+spec:
+  url: https://assets.bonsai.sensu.io/73a6f8b6f56672630d83ec21676f9a6251094475/sensu-plugins-disk-checks_5.0.0_centos_linux_amd64.tar.gz
+  sha512: 0ce9d52b270b77f4cab754e55732ae002228201d0bd01a89b954a0655b88c1ee6546e2f82cfd1eec04689af90ad940cde128e8867912d9e415f4a58d7fdcdadf
+```
+
+##### Check manifest
+
+```yaml
+---
+type: CheckConfig
+spec:
+  command: "metrics-disk-usage.rb"
+  handlers: []
+  high_flap_threshold: 0
+  interval: 10
+  low_flap_threshold: 0
+  publish: true
+  runtime_assets:
+  - sensu-plugins-disk-checks
+  - sensu-ruby-runtime
+  subscriptions:
+  - linux
+  output_metric_format: graphite_plaintext
+  output_metric_handlers:
+  - influx-db
+```
+#### Sensu Core
+##### Check definition
+```json
+{
+  "checks": {
+    "metrics-disk-usage": {
+      "command": "metric-disk-usage.rb",
+      "subscribers": ["linux"],
+      "interval": 10,
+      "refresh": 10,
+      "handlers": ["influxdb"]
+    }
+  }
+}
+
+```
+
+### Functionality
 
 **check-disk-usage**
 
@@ -74,19 +193,8 @@ Check the health of a disk using `smartctl`
 
 Check the status of SMART offline tests and optionally check if tests were executed in a specified interval
 
-## Files
- * bin/check-disk-usage.rb
- * bin/check-fstab-mounts.rb
- * bin/check-smart-status.rb
- * bin/check-smart.rb
- * bin/check-smart-tests.rb
- * bin/metrics-disk.rb
- * bin/metrics-disk-capacity.rb
- * bin/metrics-disk-usage.rb
-
-## Usage
-
-This is a sample input file used by check-smart-status and check-smart, see the script for further details.
+### Additional information
+The `check-smart.rb` and `check-smart-status.rb` scripts can make use of a json file living on disk in `/etc/sensu/conf.d`with the name `smart.json`. You can see a sample input file used by these scripts below. Please refer to the individual scripts for further details.
 ```json
 {
   "smart": {
@@ -117,13 +225,16 @@ This is a sample input file used by check-smart-status and check-smart, see the 
 }
 ```
 
-## Installation
+### Installation
 
-[Installation and Setup](http://sensu-plugins.io/docs/installation_instructions.html)
+### Sensu Go
 
-## Notes
+See the instructions above for [asset registration](#asset-registration)
+
+### Sensu Core
+Install and setup plugins on [Sensu Core](https://docs.sensu.io/sensu-core/latest/installation/installing-plugins/)
+
 
 ### Certification Verification
 
-If you are verifying certificates in the gem install you will need the certificate for the `sys-filesystem` gem loaded
-in the gem certificate store. That cert can be found [here](https://raw.githubusercontent.com/djberg96/sys-filesystem/ffi/certs/djberg96_pub.pem).
+If you are verifying certificates in the gem install you will need the certificate for the `sys-filesystem` gem loaded in the gem certificate store. That cert can be found [here](https://raw.githubusercontent.com/djberg96/sys-filesystem/ffi/certs/djberg96_pub.pem).
