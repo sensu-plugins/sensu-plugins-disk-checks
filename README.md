@@ -102,8 +102,8 @@ spec:
   low_flap_threshold: 0
   publish: true
   runtime_assets:
-  - sensu-plugins-disk-checks
-  - sensu-ruby-runtime
+  - sensu-plugins/sensu-plugins-disk-checks
+  - sensu/sensu-ruby-runtime
   subscriptions:
   - linux
   output_metric_format: graphite_plaintext
