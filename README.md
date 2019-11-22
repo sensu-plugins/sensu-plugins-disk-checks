@@ -10,8 +10,8 @@
 - [Usage examples](#usage-examples)
 - [Configuration](#configuration)
   - [Sensu Go](#sensu-go)
-    - [Asset manifest](#asset-manifest)
-    - [Check manifest](#check-manifest)
+    - [Asset definition](#asset-definition)
+    - [Check definition](#check-definition)
   - [Sensu Core](#sensu-core)
     - [Check definition](#check-definition)
 - [Functionality](#functionality)
@@ -78,7 +78,7 @@ Assets are the best way to make use of this plugin. If you're not using an asset
 
 If you're using an earlier version of sensuctl, you can download the asset definition from [this project's Bonsai Asset Index page](https://bonsai.sensu.io/assets/sensu-plugins/sensu-plugins-disk-checks).
 
-##### Asset manifest
+##### Asset definition
 
 ```yaml
 ---
@@ -91,7 +91,7 @@ spec:
   sha512: 0ce9d52b270b77f4cab754e55732ae002228201d0bd01a89b954a0655b88c1ee6546e2f82cfd1eec04689af90ad940cde128e8867912d9e415f4a58d7fdcdadf
 ```
 
-##### Check manifest
+##### Check definition
 
 ```yaml
 ---
