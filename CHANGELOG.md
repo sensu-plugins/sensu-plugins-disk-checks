@@ -5,7 +5,9 @@ This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins
 
 ## [Unreleased]
 
+## [5.0.1] - 2019-12-10
 ### Changed
+- Updated readme for compliance with proposed plugins style guide
 - Updated sys-filesystem gem dependency from 1.1.7 to 1.3.2
 
 ### Added
@@ -210,7 +212,8 @@ https://mathias-kettner.de/checkmk_filesystems.html
 ### Added
 - initial release
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/5.0.0...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/5.0.1...HEAD
+[5.0.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/5.0.0...5.0.1
 [5.0.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/4.0.1...5.0.0
 [4.0.1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/4.0.0...4.0.1
 [4.0.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/3.1.1...4.0.0
