@@ -58,7 +58,7 @@ Usage: check-disk-usage.rb (options)
 
 **metrics-disk-usage.rb**
 ```
-Usage: /opt/sensu/embedded/bin/metrics-disk-usage.rb (options)
+Usage: metrics-disk-usage.rb (options)
     -B, --block-size BLOCK_SIZE      Set block size for sizes printed
     -f, --flatten                    Output mounts with underscore rather than dot
     -i, --ignore-mount MNT[,MNT]     Ignore mounts matching pattern(s)
