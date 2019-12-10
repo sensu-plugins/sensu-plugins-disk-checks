@@ -40,7 +40,7 @@ The Sensu assets packaged from this repository are built against the Sensu ruby 
 
 **check-disk-usage.rb**
 ```
-Usage: /opt/sensu/embedded/bin/check-disk-usage.rb (options)
+Usage: check-disk-usage.rb (options)
     -c PERCENT                       Critical if PERCENT or more of disk full
     -w PERCENT                       Warn if PERCENT or more of disk full
     -t TYPE[,TYPE]                   Only check fs type(s)
