@@ -5,6 +5,9 @@ This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins
 
 ## [Unreleased]
 
+### Changed
+- Updated sys-filesystem gem dependency from 1.1.7 to 1.3.2
+
 ### Added
 - Updated asset build targets to support centos6
 
