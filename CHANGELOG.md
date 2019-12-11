@@ -213,7 +213,7 @@ https://mathias-kettner.de/checkmk_filesystems.html
 - initial release
 
 [Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/5.0.1...HEAD
-[5.0.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/5.0.0...5.0.1
+[5.0.1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/5.0.0...5.0.1
 [5.0.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/4.0.1...5.0.0
 [4.0.1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/4.0.0...4.0.1
 [4.0.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/3.1.1...4.0.0
