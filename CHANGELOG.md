@@ -5,6 +5,9 @@ This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins
 
 ## [Unreleased]
 
+### Changed
+- Updated bundler dependancy to '~> 2.1'
+
 ## [5.0.1] - 2019-12-10
 ### Changed
 - Updated readme for compliance with proposed plugins style guide
