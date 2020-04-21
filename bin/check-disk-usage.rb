@@ -63,6 +63,13 @@ class CheckDisk < Sensu::Plugin::Check::CLI
          description: 'Ignore option(s)',
          proc: proc { |a| a.split('.') }
 
+  option :ignore_reserved,
+         description: 'Ignore bytes reserved for prvileged processes',
+         short: '-r',
+         long: '--ignore-reserved',
+         boolean: true,
+         default: false
+
   option :bwarn,
          short: '-w PERCENT',
          description: 'Warn if PERCENT or more of disk full',
@@ -199,7 +206,11 @@ class CheckDisk < Sensu::Plugin::Check::CLI
   # Determine the percent byte usage
   #
   def percent_bytes(fs_info)
-    (100.0 - (100.0 * fs_info.bytes_free / fs_info.bytes_total)).round(2)
+    if config[:ignore_reserved]
+      (100.0 - (100.0 * fs_info.bytes_available / fs_info.bytes_total)).round(2)
+    else
+      (100.0 - (100.0 * fs_info.bytes_free / fs_info.bytes_total)).round(2)
+    end
   end
 
   # Generate output

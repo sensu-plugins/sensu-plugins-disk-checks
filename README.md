@@ -50,6 +50,7 @@ Usage: check-disk-usage.rb (options)
     -p PATHRE                        Ignore mount point(s) matching regular expression
     -x TYPE[,TYPE]                   Ignore fs type(s)
     -I MNT[,MNT]                     Include only mount point(s)
+    -r                               Ignore bytes reserved for privileged processes only
     -W PERCENT                       Warn if PERCENT or more of inodes used
     -m MAGIC                         Magic factor to adjust warn/crit thresholds. Example: .9
     -l MINIMUM                       Minimum size to adjust (in GB)
