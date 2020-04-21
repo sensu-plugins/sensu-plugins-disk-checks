@@ -8,6 +8,8 @@ This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins
 ### Changed
 - Updated bundler dependancy to '~> 2.1'
 - Added option to ignore privileged bytes
+- Updated rubocop dependency to '~> 0.81.0'
+- Remediated rubocop issues
 
 ## [5.0.1] - 2019-12-10
 ### Changed

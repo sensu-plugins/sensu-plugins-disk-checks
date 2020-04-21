@@ -1,4 +1,6 @@
 #! /usr/bin/env ruby
+# frozen_string_literal: true
+
 #
 #   check-fstab-mounts
 #
@@ -51,30 +53,30 @@ class CheckFstabMounts < Sensu::Plugin::Check::CLI
     @missing_mounts = []
   end
 
-  def resolve_device(d)
-    if d.start_with?('UUID=')
-      uuid = d.split('=')[1]
+  def resolve_device(dev)
+    if dev.start_with?('UUID=')
+      uuid = dev.split('=')[1]
       path = File.join('/', 'dev', 'disk', 'by-uuid', uuid)
       if File.exist?(path) && File.symlink?(path)
         return File.realpath(path)
       end
     end
 
-    if d.start_with?('LABEL=')
-      label = d.split('=')[1]
+    if dev.start_with?('LABEL=')
+      label = dev.split('=')[1]
       path  = File.join('/', 'dev', 'disk', 'by-label', label)
       if File.exist?(path) && File.symlink?(path)
         return File.realpath(path)
       end
     end
 
-    if d.start_with?('/dev/mapper')
-      if File.symlink?(d)
-        d = File.realpath(d, '/')
+    if dev.start_with?('/dev/mapper')
+      if File.symlink?(dev)
+        dev = File.realpath(dev, '/')
       end
     end
 
-    d
+    dev
   end
 
   # Check by mount destination (col 2 in fstab and proc/mounts)
@@ -83,6 +85,7 @@ class CheckFstabMounts < Sensu::Plugin::Check::CLI
     @fstab.each do |line|
       next if line =~ /^\s*#/
       next if line =~ /^\s*$/
+
       fields = line.split(/\s+/)
       next if fields[1] == 'none' || (fields[3].include? 'noauto')
       next if config[:fstypes] && !config[:fstypes].include?(fields[2])
