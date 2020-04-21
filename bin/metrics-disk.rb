@@ -1,4 +1,6 @@
 #! /usr/bin/env ruby
+# frozen_string_literal: true
+
 #
 #   disk-metrics
 #
@@ -75,7 +77,7 @@ class DiskGraphite < Sensu::Plugin::Metric::CLI::Graphite
       end
       next if stats == ['0'].cycle.take(stats.size)
 
-      next if config[:ignore_device] && config[:ignore_device].find { |x| dev.match(x) }
+      next if config[:ignore_device]&.find { |x| dev.match(x) }
       next if config[:include_device] && !config[:include_device].find { |x| dev.match(x) }
 
       metrics.size.times { |i| output "#{config[:scheme]}.#{dev}.#{metrics[i]}", stats[i] }

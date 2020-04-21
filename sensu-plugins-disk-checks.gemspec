@@ -1,10 +1,12 @@
-lib = File.expand_path('../lib', __FILE__)
+# frozen_string_literal: true
+
+lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 require 'date'
 require_relative 'lib/sensu-plugins-disk-checks'
 
-Gem::Specification.new do |s| # rubocop:disable Metrics/BlockLength
+Gem::Specification.new do |s|
   s.authors                = ['Sensu-Plugins and contributors']
   # s.cert_chain             = ['certs/sensu-plugins.pem']
   s.date                   = Date.today.to_s
@@ -16,10 +18,10 @@ Gem::Specification.new do |s| # rubocop:disable Metrics/BlockLength
   s.files                  = Dir.glob('{bin,lib}/**/*') + %w[LICENSE README.md CHANGELOG.md]
   s.homepage               = 'https://github.com/sensu-plugins/sensu-plugins-disk-checks'
   s.license                = 'MIT'
-  s.metadata               = { 'maintainer'         => '@mattyjones',
+  s.metadata               = { 'maintainer' => '@mattyjones',
                                'development_status' => 'active',
-                               'production_status'  => 'unstable - testing recommended',
-                               'release_draft'      => 'false',
+                               'production_status' => 'unstable - testing recommended',
+                               'release_draft' => 'false',
                                'release_prerelease' => 'false' }
   s.name                   = 'sensu-plugins-disk-checks'
   s.platform               = Gem::Platform::RUBY
@@ -42,6 +44,6 @@ Gem::Specification.new do |s| # rubocop:disable Metrics/BlockLength
   s.add_development_dependency 'rake',                      '~> 13.0'
   s.add_development_dependency 'redcarpet',                 '~> 3.2'
   s.add_development_dependency 'rspec',                     '~> 3.1'
-  s.add_development_dependency 'rubocop',                   '~> 0.51.0'
+  s.add_development_dependency 'rubocop',                   '~> 0.81.0'
   s.add_development_dependency 'yard',                      '~> 0.9.11'
 end

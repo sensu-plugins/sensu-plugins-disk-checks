@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SensuPluginsDiskChecks
   module Version
     MAJOR = 5
