@@ -5,6 +5,10 @@ This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins
 
 ## [Unreleased]
 
+## [5.1.1] - 2020-04-22
+### Changed
+- Removed centos from .bonsai.yml to make Bonsai happy again
+
 ## [5.1.0] - 2020-04-22
 ### Changed
 - Updated bundler dependancy to '~> 2.1'
@@ -220,7 +224,8 @@ https://mathias-kettner.de/checkmk_filesystems.html
 ### Added
 - initial release
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/5.1.0...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/5.1.1...HEAD
+[5.1.1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/5.1.0...5.1.1
 [5.1.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/5.0.1...5.1.0
 [5.0.1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/5.0.0...5.0.1
 [5.0.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/4.0.1...5.0.0
