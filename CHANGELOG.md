@@ -11,7 +11,7 @@ This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins
 - Added option to ignore privileged bytes
 - Updated rubocop dependency to '~> 0.81.0'
 - Remediated rubocop issues
-- Updated sys-filesystem gem dependency from 1.1.7 to 1.3.4
+- Updated sys-filesystem gem dependency from 1.3.2 to 1.3.4
 
 ## [5.0.1] - 2019-12-10
 ### Changed
