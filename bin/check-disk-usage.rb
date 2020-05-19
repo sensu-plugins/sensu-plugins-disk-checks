@@ -66,7 +66,7 @@ class CheckDisk < Sensu::Plugin::Check::CLI
          proc: proc { |a| a.split('.') }
 
   option :ignore_reserved,
-         description: 'Ignore bytes reserved for prvileged processes',
+         description: 'Ignore bytes reserved for privileged processes',
          short: '-r',
          long: '--ignore-reserved',
          boolean: true,
@@ -210,7 +210,13 @@ class CheckDisk < Sensu::Plugin::Check::CLI
   #
   def percent_bytes(fs_info)
     if config[:ignore_reserved]
-      (100.0 - (100.0 * fs_info.bytes_available / fs_info.bytes_total)).round(2)
+      u100 = fs_info.bytes_used * 100.0
+      nonroot_total = fs_info.bytes_used + fs_info.bytes_available
+      if nonroot_total.zero?
+        0
+      else
+        (u100 / nonroot_total + (u100 % nonroot_total != 0 ? 1 : 0)).truncate(2)
+      end
     else
       (100.0 - (100.0 * fs_info.bytes_free / fs_info.bytes_total)).round(2)
     end
