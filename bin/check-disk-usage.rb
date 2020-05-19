@@ -215,7 +215,7 @@ class CheckDisk < Sensu::Plugin::Check::CLI
       if nonroot_total.zero?
         0
       else
-        (u100 / nonroot_total + (u100 % nonroot_total != 0 ? 1 : 0)).truncate(2)
+        ('%.2f' % (u100 / nonroot_total + (u100 % nonroot_total != 0 ? 1 : 0))).to_f
       end
     else
       (100.0 - (100.0 * fs_info.bytes_free / fs_info.bytes_total)).round(2)
