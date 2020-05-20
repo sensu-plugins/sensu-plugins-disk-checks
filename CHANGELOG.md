@@ -4,6 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins/community/blob/master/HOW_WE_CHANGELOG.md)
 
 ## [Unreleased]
+
+## [5.1.2] - 2020-05-20
 ### Fixed
 - check-disk-usage.rb: More accurate disk percent usage ignoring privileged bytes (@SaviourSelf)
 
@@ -226,7 +228,8 @@ https://mathias-kettner.de/checkmk_filesystems.html
 ### Added
 - initial release
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/5.1.1...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/5.1.2...HEAD
+[5.1.2]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/5.1.1...5.1.2
 [5.1.1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/5.1.0...5.1.1
 [5.1.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/5.0.1...5.1.0
 [5.0.1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/5.0.0...5.0.1

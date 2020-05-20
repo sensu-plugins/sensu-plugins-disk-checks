@@ -4,7 +4,7 @@ module SensuPluginsDiskChecks
   module Version
     MAJOR = 5
     MINOR = 1
-    PATCH = 1
+    PATCH = 2
 
     VER_STRING = [MAJOR, MINOR, PATCH].compact.join('.')
   end
