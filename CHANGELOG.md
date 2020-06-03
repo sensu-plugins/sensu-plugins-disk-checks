@@ -5,6 +5,10 @@ This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins
 
 ## [Unreleased]
 
+## [5.1.3] - 2020-06-02
+### Fixed
+- fix for incorrect Ruby literal string freeze in binaries
+
 ## [5.1.2] - 2020-05-20
 ### Fixed
 - check-disk-usage.rb: More accurate disk percent usage ignoring privileged bytes (@SaviourSelf)
@@ -228,7 +232,8 @@ https://mathias-kettner.de/checkmk_filesystems.html
 ### Added
 - initial release
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/5.1.2...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/5.1.3...HEAD
+[5.1.3]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/5.1.2...5.1.3
 [5.1.2]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/5.1.1...5.1.2
 [5.1.1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/5.1.0...5.1.1
 [5.1.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/5.0.1...5.1.0
