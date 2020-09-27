@@ -55,6 +55,6 @@ Style/HashTransformValues:
 Style/NumericPredicate:
   Enabled: false
 
-# syntax is non obvious to a non ruby developer
+# syntax is not common outside of the ruby community; try to reduce the opinionated back and forth as a more language neutral community
 Style/SafeNavigation:
   Enabled: false
