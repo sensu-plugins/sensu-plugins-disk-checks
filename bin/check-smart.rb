@@ -171,7 +171,7 @@ class CheckSMART < Sensu::Plugin::Check::CLI
   # Main function
   #
   def run
-    unless @devices.length > 0 # rubocop: disable Style/NumericPredicate
+    unless @devices.length > 0
       exit_with(
         config[:no_smart_capable_disks],
         'No SMART capable devices found'
@@ -181,13 +181,13 @@ class CheckSMART < Sensu::Plugin::Check::CLI
     unhealthy_disks = @devices.select { |disk| disk.smart_capable? && !disk.healthy? }
     unknown_disks = @devices.reject(&:smart_capable?)
 
-    if unhealthy_disks.length > 0 # rubocop: disable Style/NumericPredicate
+    if unhealthy_disks.length > 0
       output = unhealthy_disks.map(&:health_output)
       output.concat(unknown_disks.map(&:capability_output))
       critical output.join("\n")
     end
 
-    if unknown_disks.length > 0 # rubocop: disable Style/NumericPredicate
+    if unknown_disks.length > 0
       exit_with(
         config[:smart_incapable_disks],
         unknown_disks.map(&:capability_output).join("\n")
