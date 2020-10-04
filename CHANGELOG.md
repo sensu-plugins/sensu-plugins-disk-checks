@@ -5,6 +5,48 @@ This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins
 
 ## [Unreleased]
 
+## [5.1.3] - 2020-06-02
+### Fixed
+- fix for incorrect Ruby literal string freeze in binaries
+
+## [5.1.2] - 2020-05-20
+### Fixed
+- check-disk-usage.rb: More accurate disk percent usage ignoring privileged bytes (@SaviourSelf)
+
+## [5.1.1] - 2020-04-22
+### Changed
+- Removed centos from .bonsai.yml to make Bonsai happy again
+
+## [5.1.0] - 2020-04-22
+### Changed
+- Updated bundler dependancy to '~> 2.1'
+- Added option to ignore privileged bytes
+- Updated rubocop dependency to '~> 0.81.0'
+- Remediated rubocop issues
+- Updated sys-filesystem gem dependency from 1.3.2 to 1.3.4
+
+## [5.0.1] - 2019-12-10
+### Changed
+- Updated readme for compliance with proposed plugins style guide
+- Updated sys-filesystem gem dependency from 1.1.7 to 1.3.2
+
+### Added
+- Updated asset build targets to support centos6
+
+## [5.0.0] - 2019-04-10
+### Breaking Changes
+- Update minimum required ruby version to 2.3. Drop unsupported ruby versions.
+- Bump `sensu-plugin` dependency from `~> 1.2` to `~> 4.0` you can read the changelog entries for [4.0](https://github.com/sensu-plugins/sensu-plugin/blob/master/CHANGELOG.md#400---2018-02-17), [3.0](https://github.com/sensu-plugins/sensu-plugin/blob/master/CHANGELOG.md#300---2018-12-04), and [2.0](https://github.com/sensu-plugins/sensu-plugin/blob/master/CHANGELOG.md#v200---2017-03-29)
+
+### Added
+- Travis build automation to generate Sensu Asset tarballs that can be used n conjunction with Sensu provided ruby runtime assets and the Bonsai Asset Index
+- Require latest sensu-plugin for [Sensu Go support](https://github.com/sensu-plugins/sensu-plugin#sensu-go-enablement)
+
+## [4.0.1]
+### Fixed
+- check-smart-status.rb: Check for overrides when --device is used (@GwennG)
+
+## [4.0.0] -
 ### Breaking Changes
 - check-smart.rb: fixing a `undefined` error by renaming `no-smart-capable-disks` to `--zero-smart-capable_disks` as the parser sees any `--no-` argument and attempts to negate it which a `(True|False)Class` can not be cast to a symbol (@bdeluca)
 
@@ -190,7 +232,14 @@ https://mathias-kettner.de/checkmk_filesystems.html
 ### Added
 - initial release
 
-[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/4.0.0...HEAD
+[Unreleased]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/5.1.3...HEAD
+[5.1.3]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/5.1.2...5.1.3
+[5.1.2]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/5.1.1...5.1.2
+[5.1.1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/5.1.0...5.1.1
+[5.1.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/5.0.1...5.1.0
+[5.0.1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/5.0.0...5.0.1
+[5.0.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/4.0.1...5.0.0
+[4.0.1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/4.0.0...4.0.1
 [4.0.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/3.1.1...4.0.0
 [3.1.1]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/3.1.0...3.1.1
 [3.1.0]: https://github.com/sensu-plugins/sensu-plugins-disk-checks/compare/3.0.1...3.1.0

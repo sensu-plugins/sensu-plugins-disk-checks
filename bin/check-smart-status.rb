@@ -1,4 +1,6 @@
 #! /usr/bin/env ruby
+# frozen_string_literal: false
+
 #
 #   check-smart
 #
@@ -82,6 +84,7 @@ class Disk
 
   def smart_ignore?(num)
     return if @att_ignore.nil?
+
     @att_ignore.include? num
   end
 
@@ -163,6 +166,7 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
     # Set default threshold
     default_threshold = config[:defaults].split(',')
     raise 'Invalid default threshold parameter count' unless default_threshold.size == 4
+
     @smart_attributes.each do |att|
       att[:crit_min] = default_threshold[0].to_i if att[:crit_min].nil?
       att[:warn_min] = default_threshold[1].to_i if att[:warn_min].nil?
@@ -272,7 +276,16 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
     # Return parameter value if it's defined
     if config[:devices] != 'all'
       config[:devices].split(',').each do |dev|
-        devices << Disk.new(dev.to_s, '', nil)
+        jconfig = @hardware.find { |d| d[:path] == dev }
+
+        if jconfig.nil?
+          override = nil
+          ignore = nil
+        else
+          override = jconfig[:override]
+          ignore = jconfig[:ignore]
+        end
+        devices << Disk.new(dev.to_s, override, ignore)
       end
       return devices
     end

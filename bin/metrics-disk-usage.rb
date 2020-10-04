@@ -1,4 +1,6 @@
 #! /usr/bin/env ruby
+# frozen_string_literal: false
+
 #
 #   disk-usage-metrics
 #
@@ -105,8 +107,9 @@ class DiskUsageMetrics < Sensu::Plugin::Metric::CLI::Graphite
       _, _, used, avail, used_p, mnt = line.split
 
       unless %r{/sys[/|$]|/dev[/|$]|/run[/|$]} =~ mnt
-        next if config[:ignore_mnt] && config[:ignore_mnt].find { |x| mnt.match(x) }
+        next if config[:ignore_mnt]&.find { |x| mnt.match(x) }
         next if config[:include_mnt] && !config[:include_mnt].find { |x| mnt.match(x) }
+
         mnt = if config[:flatten]
                 mnt.eql?('/') ? 'root' : mnt.gsub(/^\//, '')
               else

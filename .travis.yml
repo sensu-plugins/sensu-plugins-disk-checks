@@ -1,11 +1,16 @@
 language: ruby
+services:
+- docker
 cache:
 - bundler
+before_install:
+- bash -c 'if [ command -v bundler ]; then bundle update --bundler; fi'
 install:
 - bundle install
 rvm:
 - 2.3.0
 - 2.4.1
+- 2.5.3
 notifications:
   email:
     recipients:
@@ -16,14 +21,22 @@ script:
 - bundle exec rake default
 - gem build sensu-plugins-disk-checks.gemspec
 - gem install sensu-plugins-disk-checks-*.gem
+before_deploy:
+- bash -c "[ ! -d bonsai/ ] && git clone https://github.com/sensu/sensu-go-bonsai-asset.git bonsai || echo 'bonsai/ exists, skipping git clone'"
 deploy:
-  provider: rubygems
+- provider: rubygems
   api_key:
     secure: MA9lRNkP7h07yWS10BZ6ZdlWNdgKB4UU5OyLiwM+IFB8uWMM/l5OsCThYkPPRTNCcGR6O2QaXukgKSz8TX+c3b/+ocMa2iJRnREIkH6/F0ujdmMmtVFFh8/lUdtlxdg3i7HqhjbhZgUNPbDUI5eVO72QAb4s20Idyw92kPEFBXU=
   gem: sensu-plugins-disk-checks
   on:
     tags: true
     all_branches: true
-    rvm: 2.3.0
     rvm: 2.4.1
     repo: sensu-plugins/sensu-plugins-disk-checks
+- provider: script
+  script: bonsai/ruby-runtime/travis-build-ruby-plugin-assets.sh sensu-plugins-disk-checks
+  skip_cleanup: true
+  on:
+    tags: true
+    all_branches: true
+    rvm: 2.4.1

@@ -1,4 +1,6 @@
 #! /usr/bin/env ruby
+# frozen_string_literal: false
+
 #
 #   disk-capacity-metrics
 #
@@ -47,7 +49,7 @@ class DiskCapacity < Sensu::Plugin::Metric::CLI::Graphite
       begin
         converted = Integer(value)
         values[index] = converted
-      rescue ArgumentError # rubocop:disable HandleExceptions
+      rescue ArgumentError # rubocop:disable Lint/SuppressedException
       end
     end
     values

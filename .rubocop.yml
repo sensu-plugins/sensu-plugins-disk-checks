@@ -1,3 +1,5 @@
+AllCops:
+  TargetRubyVersion: 2.3
 
 MethodLength:
   Max: 200
@@ -33,4 +35,26 @@ Style/Next:
   Enabled: false
 
 Style/ZeroLengthPredicate:
+  Enabled: false
+
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Style/NumericPredicate:
+  Enabled: false
+
+# syntax is not common outside of the ruby community; try to reduce the opinionated back and forth as a more language neutral community
+Style/SafeNavigation:
   Enabled: false

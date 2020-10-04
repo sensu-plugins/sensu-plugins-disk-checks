@@ -1,4 +1,6 @@
 #! /usr/bin/env ruby
+# frozen_string_literal: false
+
 #
 #   check-disk
 #
@@ -27,12 +29,12 @@
 
 require 'sensu-plugin/check/cli'
 require 'sys/filesystem'
-include Sys
 
 #
 # Check Disk
 #
 class CheckDisk < Sensu::Plugin::Check::CLI
+  include Sys
   option :fstype,
          short: '-t TYPE[,TYPE]',
          description: 'Only check fs type(s)',
@@ -63,9 +65,19 @@ class CheckDisk < Sensu::Plugin::Check::CLI
          description: 'Ignore option(s)',
          proc: proc { |a| a.split('.') }
 
+
   option :ignorereadonly,
-         long: '--ignore-readonly'
-         description: 'Ignore read-only filesystems'
+         long: '--ignore-readonly',
+         description: 'Ignore read-only filesystems',
+         boolean: true,
+         default: false
+
+  option :ignore_reserved,
+         description: 'Ignore bytes reserved for privileged processes',
+         short: '-r',
+         long: '--ignore-reserved',
+         boolean: true,
+         default: false
 
   option :bwarn,
          short: '-w PERCENT',
@@ -130,10 +142,10 @@ class CheckDisk < Sensu::Plugin::Check::CLI
     mounts.each do |line|
       begin
         next if config[:fstype] && !config[:fstype].include?(line.mount_type)
-        next if config[:ignoretype] && config[:ignoretype].include?(line.mount_type)
-        next if config[:ignoremnt] && config[:ignoremnt].include?(line.mount_point)
-        next if config[:ignorepathre] && config[:ignorepathre].match(line.mount_point)
-        next if config[:ignoreopt] && config[:ignoreopt].include?(line.options)
+        next if config[:ignoretype]&.include?(line.mount_type)
+        next if config[:ignoremnt]&.include?(line.mount_point)
+        next if config[:ignorepathre]&.match(line.mount_point)
+        next if config[:ignoreopt]&.include?(line.options)
         next if config[:ignorereadonly] && line.options.split(',').include?('ro')
         next if config[:includemnt] && !config[:includemnt].include?(line.mount_point)
       rescue StandardError
@@ -162,6 +174,7 @@ class CheckDisk < Sensu::Plugin::Check::CLI
     if line.mount_type == 'devfs'
       return
     end
+
     if fs_info.respond_to?(:inodes) && !fs_info.inodes.nil? # needed for windows
       percent_i = percent_inodes(fs_info)
       if percent_i >= config[:icrit]
@@ -190,9 +203,18 @@ class CheckDisk < Sensu::Plugin::Check::CLI
     end
   end
 
-  def to_human(s)
-    unit = [[1_099_511_627_776, 'TiB'], [1_073_741_824, 'GiB'], [1_048_576, 'MiB'], [1024, 'KiB'], [0, 'B']].detect { |u| s >= u[0] }
-    format("%.2f #{unit[1]}", (s >= 1024 ? s.to_f / unit[0] : s))
+  def to_human(size)
+    unit = [
+      [1_099_511_627_776, 'TiB'],
+      [1_073_741_824, 'GiB'],
+      [1_048_576, 'MiB'],
+      [1024, 'KiB'],
+      [0, 'B']
+    ].detect { |u| size >= u[0] }
+    format(
+      "%.2f #{unit[1]}",
+      (size >= 1024 ? size.to_f / unit[0] : size)
+    )
   end
 
   # Determine the percent inode usage
@@ -204,7 +226,17 @@ class CheckDisk < Sensu::Plugin::Check::CLI
   # Determine the percent byte usage
   #
   def percent_bytes(fs_info)
-    (100.0 - (100.0 * fs_info.bytes_free / fs_info.bytes_total)).round(2)
+    if config[:ignore_reserved]
+      u100 = fs_info.bytes_used * 100.0
+      nonroot_total = fs_info.bytes_used + fs_info.bytes_available
+      if nonroot_total.zero?
+        0
+      else
+        (u100 / nonroot_total + (u100 % nonroot_total != 0 ? 1 : 0)).round(2)
+      end
+    else
+      (100.0 - (100.0 * fs_info.bytes_free / fs_info.bytes_total)).round(2)
+    end
   end
 
   # Generate output

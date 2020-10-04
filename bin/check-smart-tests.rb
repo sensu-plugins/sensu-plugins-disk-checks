@@ -1,4 +1,6 @@
 #! /usr/bin/env ruby
+# frozen_string_literal: false
+
 #
 #   check-smart-tests.rb
 #
@@ -78,7 +80,7 @@ end
 
 class CheckSMARTTests < Sensu::Plugin::Check::CLI
   option :executable,
-         long:  '--executable EXECUTABLE',
+         long: '--executable EXECUTABLE',
          short: '-e EXECUTABLE',
          default: '/usr/sbin/smartctl',
          description: 'Path to smartctl executable'
