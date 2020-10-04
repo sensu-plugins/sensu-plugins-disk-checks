@@ -65,7 +65,6 @@ class CheckDisk < Sensu::Plugin::Check::CLI
          description: 'Ignore option(s)',
          proc: proc { |a| a.split('.') }
 
-
   option :ignorereadonly,
          long: '--ignore-readonly',
          description: 'Ignore read-only filesystems',
