@@ -65,6 +65,12 @@ class CheckDisk < Sensu::Plugin::Check::CLI
          description: 'Ignore option(s)',
          proc: proc { |a| a.split('.') }
 
+  option :ignorereadonly,
+         long: '--ignore-readonly',
+         description: 'Ignore read-only filesystems',
+         boolean: true,
+         default: false
+
   option :ignore_reserved,
          description: 'Ignore bytes reserved for privileged processes',
          short: '-r',
@@ -139,6 +145,7 @@ class CheckDisk < Sensu::Plugin::Check::CLI
         next if config[:ignoremnt]&.include?(line.mount_point)
         next if config[:ignorepathre]&.match(line.mount_point)
         next if config[:ignoreopt]&.include?(line.options)
+        next if config[:ignorereadonly] && line.options.split(',').include?('ro')
         next if config[:includemnt] && !config[:includemnt].include?(line.mount_point)
       rescue StandardError
         unknown 'An error occured getting the mount info'
