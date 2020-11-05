@@ -5,6 +5,10 @@ This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins
 
 ## [Unreleased]
 
+## [5.1.4] - 2020-11-05
+### Fixed
+- change Sensu asset build definition to match ruby-runtime build collection. No change to underlying plugin functionality
+
 ## [5.1.3] - 2020-06-02
 ### Fixed
 - fix for incorrect Ruby literal string freeze in binaries
