@@ -4,6 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins/community/blob/master/HOW_WE_CHANGELOG.md)
 
 ## [Unreleased]
+### Fixed
+- check-smart-status.rb - Check was ignoring all parameters, when ignore was not defined. @VeselaHouba
 
 ## [5.1.4] - 2020-11-05
 ### Fixed
