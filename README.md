@@ -55,6 +55,7 @@ Usage: check-disk-usage.rb (options)
     -m MAGIC                         Magic factor to adjust warn/crit thresholds. Example: .9
     -l MINIMUM                       Minimum size to adjust (in GB)
     -n NORMAL                        Levels are not adapted for filesystems of exactly this size, where levels are reduced for smaller filesystems and raised for larger filesystems.
+    -f FREESPACEBELOW                Trigger warn/critical alarm only if free space on mount goes below this threshold (in GB). Useful on huge filesystems which are 99.X percent full and still have lots of space left.
 ```
 
 **metrics-disk-usage.rb**
