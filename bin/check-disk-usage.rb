@@ -122,6 +122,13 @@ class CheckDisk < Sensu::Plugin::Check::CLI
          proc: proc(&:to_f),
          default: 100
 
+  option :freespacebelow,
+         short: '-f FREESPACEBELOW',
+         description: 'Trigger alarm only if free space on device is below '\
+           'this threshold (in GB)',
+         proc: proc(&:to_f),
+         default: 10_000
+
   # Setup variables
   #
   def initialize
@@ -194,6 +201,8 @@ class CheckDisk < Sensu::Plugin::Check::CLI
 
     used = to_human(fs_info.bytes_used)
     total = to_human(fs_info.bytes_total)
+
+    return unless (fs_info.bytes_total - fs_info.bytes_used) <= (config[:freespacebelow] * 1_000_000_000)
 
     if percent_b >= bcrit
       @crit_fs << "#{line.mount_point} #{percent_b}% bytes usage (#{used}/#{total})"
