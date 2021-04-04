@@ -83,7 +83,7 @@ class Disk
   end
 
   def smart_ignore?(num)
-    return if @att_ignore.nil?
+    return false if @att_ignore.nil?
 
     @att_ignore.include? num
   end
