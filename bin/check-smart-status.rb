@@ -232,10 +232,10 @@ class SmartCheckStatus < Sensu::Plugin::Check::CLI
           att_value = fields[9].to_i
           att_value = send(smart_att[:read], att_value) unless smart_att[:read].nil?
           if att_value < smart_att[:crit_min] || att_value > smart_att[:crit_max]
-            criticals << "#{dev} critical #{fields[0]} #{smart_att[:name]}: #{att_value}"
+            criticals << "#{dev.device_path} critical #{fields[0]} #{smart_att[:name]}: #{att_value}"
             puts "#{fields[0]} #{smart_att[:name]}: #{att_value} (critical)" if @smart_debug
           elsif att_value < smart_att[:warn_min] || att_value > smart_att[:warn_max]
-            warnings << "#{dev} warning #{fields[0]} #{smart_att[:name]}: #{att_value}"
+            warnings << "#{dev.device_path} warning #{fields[0]} #{smart_att[:name]}: #{att_value}"
             puts "#{fields[0]} #{smart_att[:name]}: #{att_value} (warning)" if @smart_debug
           else
             puts "#{fields[0]} #{smart_att[:name]}: #{att_value} (ok)" if @smart_debug # rubocop:disable Style/IfInsideElse

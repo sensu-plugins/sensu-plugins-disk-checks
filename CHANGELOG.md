@@ -5,7 +5,8 @@ This CHANGELOG follows the format listed [here](https://github.com/sensu-plugins
 
 ## [Unreleased]
 ### Fixed
-- check-smart-status.rb - Check was ignoring all parameters, when ignore was not defined. @VeselaHouba
+- check-smart-status.rb: - Check was ignoring all parameters, when ignore was not defined. @VeselaHouba
+- check-smart-status.rb: Now returns disk path instead of Disk Class instance reference. @VeselaHouba
 
 ## [5.1.4] - 2020-11-05
 ### Fixed
